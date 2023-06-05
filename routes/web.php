@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AdminViewController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,15 +30,25 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/dashboard/{slug}', [AdminViewController::class, 'display'])->name('admin_display');
-
-//CRUD Teacher
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard/user_management', [TeacherController::class, 'index'])->name('teacher_management');
-    Route::post('/dashboard/user_management', [TeacherController::class, 'store'])->name('teachers.store');
-    Route::get('/dashboard/user_management/create', [TeacherController::class, 'create'])->name('teachers.create');
-    Route::get('/dashboard/user_management/{teacher}', [TeacherController::class, 'show'])->name('teachers.show');
-    Route::get('/dashboard/user_management/{teacher}/edit', [TeacherController::class, 'edit'])->name('teachers.edit');
-    Route::put('/dashboard/user_management/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
-    Route::delete('/dashboard/user_management/{teacher}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
+Route::get('/dashboard',function(){
+    return view ('admin/assets/default');
 });
+
+Route::get('/dashboard/user_management',function(){
+    return view ('admin/assets/user_management');
+});
+
+Route::get('/dashboard/communication',function(){
+    return view ('admin/assets/communication');
+});
+
+// CRUD User
+Route::resource('/dashboard/user_management', UserController::class)->names([
+    'index' => 'users.index',
+    'create' => 'users.create',
+    'store' => 'users.store',
+    'show' => 'users.show',
+    'edit' => 'users.edit',
+    'update' => 'users.update',
+    'destroy' => 'users.destroy',
+]);

@@ -1,4 +1,7 @@
-<!-- Content Header (Page header) -->
+@extends('admin.dashboard')
+
+@section('func')
+    <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -11,9 +14,9 @@
 </div>
 
 <div class="d-flex justify-content-between mb-1">
-    <p class="fs-5 fw-bold">Teachers</p>
+    <p class="fs-5 fw-bold">users</p>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        New Teacher
+        New user
     </button>
 </div>
 
@@ -21,35 +24,32 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">ADM</th>
         </tr>
     </thead>
     <tbody>
-        @if (isset($teachers))
-            @foreach ($teachers as $teacher)
-                <tr>
-                    <th scope="row">1</th>
-                    <td>{{ $teacher->name }}</td>
-                    <td>{{ $teacher->email }}</td>
-                    <td>{{ $teacher->email }}</td>
-                    <!-- Display more columns if required -->
-                    <td>
-                        <!-- Edit button -->
-                        <a href="{{ route('teachers.edit', $teacher->id) }}">Edit</a>
-
-                        <!-- Delete button -->
-                        <form method="POST" action="{{ route('teachers.destroy', $teacher->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        @endif
+        @foreach ($users as $user)
+        <tr>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->email }}</td>
+            <td>{{ $user->email }}</td>
+            <!-- Display more columns if required -->
+            <td>
+                <!-- Edit button -->
+                <a href="{{ route('users.edit', $user->id) }}">Edit</a>
+            </td>
+            <td>
+                <!-- Delete button -->
+                <form method="POST" action="{{ route('users.destroy', $user->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
     </tbody>
 
 </table>
@@ -66,10 +66,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('teachers.store') }}" class="row g-3 needs-validation" novalidate>
+                <form action="{{ route('users.store') }}" class="row g-3 needs-validation" novalidate>
                     <div class="col-md-4">
                         <label for="validationCustom01" class="form-label">Name</label>
                         <input name="name" type="text" class="form-control" id="validationCustom01" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="validationCustom01" class="form-label">Role</label>
+                        <input name="usertype" type="text" class="form-control" id="validationCustom01" required>
                     </div>
                     <div class="col-md-4">
                         <label for="validationCustom02" class="form-label">Email</label>
@@ -92,3 +96,5 @@
         </div>
     </div>
 </div>
+
+@endsection

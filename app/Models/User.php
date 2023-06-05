@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use illuminate\Database\Eloquent\Model;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Admin;

@@ -11,7 +11,7 @@
 
     </li>
     <li class="nav-item">
-        <a href="{{ route('admin_display', ['slug' => 'user_management']) }}" class="nav-link">
+        <a href="{{ url('/dashboard/user_management') }}" class="nav-link">
             <i class="nav-icon fas fa-chart-pie"></i>
             <p>
                 User Management
@@ -19,7 +19,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('admin_display', ['slug' => 'communication']) }}" class="nav-link">
+        <a href="{{ url('/dashboard/communication') }}" class="nav-link">
             <i class="nav-icon fas fa-chart-pie"></i>
             <p>
                 Communication
@@ -29,7 +29,7 @@
 @endsection
 
 @section('dashboard_stuff')
-    {!! $view ?? view('/admin/assets/default') !!}
+    @yield('func')
 @endsection
 
 
