@@ -13,12 +13,33 @@
         </div><!-- /.container-fluid -->
     </div>
 
+
+    <p class="fs-5 fw-bold">users</p>
+
+
     <div class="d-flex justify-content-between mb-1">
-        <p class="fs-5 fw-bold">users</p>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            New user
+        <form action="{{ route('users.index') }}" method="GET">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="userTypeDropdown"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter by Roles
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="userTypeDropdown">
+                    <li><a class="dropdown-item" href="{{ route('users.index') }}">All</a></li>
+                    <li><a class="dropdown-item" href="{{ route('users.index', ['user_type' => 'students']) }}">Students</a>
+                    </li>
+                    <li><a class="dropdown-item" href="{{ route('users.index', ['user_type' => 'teachers']) }}">Teachers</a>
+                    </li>
+                    <li><a class="dropdown-item" href="{{ route('users.index', ['user_type' => 'admins']) }}">Admins</a>
+                    </li>
+                </ul>
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary my-0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i class="fa-solid fa-plus" style="color: #ffffff"></i>
         </button>
     </div>
+
 
 
     <table class="table table-striped-columns">
@@ -45,7 +66,7 @@
                             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModal">
                                 <i class="fa-solid fa-user-pen fa-sm" style="color: #0d6efd"></i>
                             </button>
-                            
+
                             <!-- Delete button -->
                             <form class="m-0 p-0" method="POST" action="{{ route('users.destroy', $user->id) }}">
                                 @csrf
@@ -56,7 +77,7 @@
                             </form>
                         </div>
                     </td>
-                    
+
                 </tr>
             @endforeach
         </tbody>
@@ -98,7 +119,8 @@
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="role" id="adminRole" value="admin">
+                                <input class="form-check-input" type="radio" name="role" id="adminRole"
+                                    value="admin">
                                 <label class="form-check-label" for="adminRole">
                                     Admin
                                 </label>
@@ -106,8 +128,8 @@
                         </div>
                         <div class="col-md-7">
                             <label for="validationCustom02" class="form-label">Email</label>
-                            <input name="email" type="email" class="form-control" id="validationCustom02" value=""
-                                required>
+                            <input name="email" type="email" class="form-control" id="validationCustom02"
+                                value="" required>
                         </div>
                         <div class="col-md-7">
                             <label for="validationCustomUsername" class="form-label">Password</label>
@@ -134,7 +156,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('users.update', $user->id) }}" method="POST" class="row g-3 needs-validation" novalidate>
+                    <form action="{{ route('users.update', $user->id) }}" method="POST"
+                        class="row g-3 needs-validation" novalidate>
                         @csrf
                         @method('PUT')
                         <div class="col-md-7">
@@ -158,7 +181,8 @@
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="role" id="adminRole" value="admin">
+                                <input class="form-check-input" type="radio" name="role" id="adminRole"
+                                    value="admin">
                                 <label class="form-check-label" for="adminRole">
                                     Admin
                                 </label>
@@ -166,8 +190,8 @@
                         </div>
                         <div class="col-md-7">
                             <label for="validationCustom02" class="form-label">Email</label>
-                            <input name="email" type="email" class="form-control" id="validationCustom02" value=""
-                                required>
+                            <input name="email" type="email" class="form-control" id="validationCustom02"
+                                value="" required>
                         </div>
                         <div class="col-md-7">
                             <label for="validationCustomUsername" class="form-label">Password</label>
