@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('marks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ADM')->constrained('students')->onDelete('cascade');
+            $table->foreignId('code')->constrained('units')->onDelete('cascade');
+            $table->string('marks');
             $table->timestamps();
         });
     }
