@@ -90,24 +90,23 @@ class UserController extends Controller
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $user = User::find($id);
         return view('admin.assets.user_edit', compact('user'));
     }
-
+    
     /**
-     * Update the specified resource in storage.
+     * Show the form for editing the specified resource.
      */
-    public function update(Request $request, User $user)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function update(Request $request, $id)
     {
+        // Find the user
+        $user = User::find($id);
+
         // Validate the form input
         $validatedData = $request->validate([
             'name' => 'required',
