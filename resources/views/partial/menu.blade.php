@@ -110,14 +110,14 @@
 
                         @yield('sidebar_menu')
 
-                        <li class="nav-item menu-open ">
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); logout();">
-                                <i class="nav-icon fas fa-sharp fa-solid fa-square-user"></i>
-                                <p class="fs-5">
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); logout();" class="nav-link">
+                                <i class="nav-icon fas fa-solid fa-user" style="color: #dc3545;"></i>
+
+                                <p>
                                     Log Out
                                 </p>
                             </a>
-
                         </li>
 
                     </ul>
