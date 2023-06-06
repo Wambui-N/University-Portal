@@ -48,6 +48,7 @@ class RegisteredUserController extends Controller
         $userTypeMappings = [
             'student' => 0,
             'teacher' => 1,
+            'admin' => 2,
         ];
 
         $user = User::create([

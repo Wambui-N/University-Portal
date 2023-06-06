@@ -34,6 +34,12 @@
                         Teacher
                     </label>
                 </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="usertype" id="adminRole" value="admin">
+                    <label class="form-check-label" for="adminRole">
+                        Admin
+                    </label>
+                </div>
             </div>
         </div>
 
