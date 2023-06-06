@@ -13,6 +13,7 @@ class teacher extends Model
         'name',
         'email',
         'user_id',
+        'ADM',
         // other fillable fields...
     ];
 

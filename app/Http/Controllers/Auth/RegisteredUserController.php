@@ -15,6 +15,7 @@ use Illuminate\View\View;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Admin;
+use App\Helpers\Helper;
 
 class RegisteredUserController extends Controller
 {
@@ -39,35 +40,26 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'usertype' => 0,
-        ]);
+        $admissionNumberPrefix = 'KU-';
+        $admissionNumberLength = 6;
+        $ADM = Helper::NumberIDGenerator('users', [], $admissionNumberPrefix, $admissionNumberLength);
 
-        switch ($user->usertype) {
+        switch ($request->usertype) {
             case 0: // Student
                 Student::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'user_id' => $user->id,
+                    'ADM' => $ADM,
                     //'additional_column' => 'value', // Add any additional columns specific to the student table
                 ]);
                 break;
             case 1: // Teacher
                 Teacher::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'user_id' => $user->id,
+                    'ADM' => $ADM,
                     //'additional_column' => 'value', // Add any additional columns specific to the teacher table
                 ]);
                 break;
             case 2: // Admin
                 Admin::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'user_id' => $user->id,
+                    'ADM' => $ADM,
                     //'additional_column' => 'value', // Add any additional columns specific to the admin table
                 ]);
                 break;
@@ -76,6 +68,13 @@ class RegisteredUserController extends Controller
                 break;
         }
 
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'usertype' => $request->usertype,
+            'ADM' => $ADM,
+        ]);
 
         event(new Registered($user));
 

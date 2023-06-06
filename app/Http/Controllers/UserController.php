@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\Admin;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -79,6 +82,27 @@ class UserController extends Controller
 
         $user->save();
 
+        $role = $request->input('role');
+        if ($role === 'student') {
+            $student = new Student();
+            // Populate the student-specific attributes
+            $student->ADM = $request->input('ADM');
+            // Associate the student with the user
+            $user->student()->save($student);
+        } elseif ($role === 'teacher') {
+            $teacher = new Teacher();
+            // Populate the teacher-specific attributes
+            $teacher->ADM = $request->input('ADM');
+            // Associate the teacher with the user
+            $user->teacher()->save($teacher);
+        } elseif ($role === 'admin') {
+            $admin = new Admin();
+            // Populate the admin-specific attributes
+            $admin->ADM = $request->input('ADM');
+            // Associate the admin with the user
+            $user->admin()->save($admin);
+        }
+
         // Redirect to a relevant page or return a response as needed
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
@@ -95,7 +119,7 @@ class UserController extends Controller
         $user = User::find($id);
         return view('admin.assets.user_edit', compact('user'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
