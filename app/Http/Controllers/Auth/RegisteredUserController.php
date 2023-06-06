@@ -37,6 +37,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'usertype' => ['required', 'in:student,teacher,admin'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -44,20 +45,35 @@ class RegisteredUserController extends Controller
         $admissionNumberLength = 6;
         $ADM = Helper::NumberIDGenerator('users', [], $admissionNumberPrefix, $admissionNumberLength);
 
+        $userTypeMappings = [
+            'student' => 0,
+            'teacher' => 1,
+        ];
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'usertype' => $userTypeMappings[$request->usertype],
+            'ADM' => $ADM,
+        ]);
+
+        event(new Registered($user));
+
         switch ($request->usertype) {
-            case 0: // Student
+            case 'student':
                 Student::create([
                     'ADM' => $ADM,
                     //'additional_column' => 'value', // Add any additional columns specific to the student table
                 ]);
                 break;
-            case 1: // Teacher
+            case 'teacher':
                 Teacher::create([
                     'ADM' => $ADM,
                     //'additional_column' => 'value', // Add any additional columns specific to the teacher table
                 ]);
                 break;
-            case 2: // Admin
+            case 'admin':
                 Admin::create([
                     'ADM' => $ADM,
                     //'additional_column' => 'value', // Add any additional columns specific to the admin table
@@ -67,16 +83,6 @@ class RegisteredUserController extends Controller
                 // Handle invalid user type
                 break;
         }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'usertype' => $request->usertype,
-            'ADM' => $ADM,
-        ]);
-
-        event(new Registered($user));
 
         Auth::login($user);
 
