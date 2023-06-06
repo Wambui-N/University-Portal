@@ -12,7 +12,7 @@
     </li>
     <li class="nav-item">
         <a href="{{ url('/dashboard/user_management') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-list-dropdown" style="color: #ffffff;"></i>
+            <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
             <p>
                 User Management
             </p>
@@ -20,7 +20,7 @@
     </li>
     <li class="nav-item">
         <a href="{{ url('/dashboard/course_management') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-books" style="color: #fff;"></i>
+            <i class="nav-icon fas fa-solid fa-book-copy" style="color: #fff;"></i>
             <p>
                 Course Management
             </p>
@@ -28,7 +28,7 @@
     </li>
     <li class="nav-item">
         <a href="{{ url('/dashboard/communication') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-envelops" style="color: #ffffff;"></i>
+            <i class="nav-icon fas fa-solid fa-envelopes" style="color: #ffffff;"></i>
             <p>
                 Communication
             </p>
