@@ -16,8 +16,8 @@ class DashboardController extends Controller
             elseif (Auth::user()->usertype=='1') {
                 return view('teacher.dashboard');
             }
-            else{
-                return view('admin.dashboard');
+            elseif (Auth::user()->usertype=='2') {
+                return view('admin.assets.default');
             }
         }
     }

@@ -30,14 +30,6 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/dashboard',function(){
-    return view ('admin/assets/default');
-});
-
-Route::get('/dashboard/user_management',function(){
-    return view ('admin/assets/user_management');
-});
-
 Route::get('/dashboard/communication',function(){
     return view ('admin/assets/communication');
 });
