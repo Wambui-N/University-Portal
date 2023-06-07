@@ -27,6 +27,7 @@
         <thead>
             <tr>
                 <th scope="col">Title</th>
+                <th scope="col">Teacher</th>
                 <th scope="col">Code</th>
                 <th scope="col">Description</th>
                 <th scope="col"> </th>
@@ -40,6 +41,7 @@
                     <td>{{ $course->name }}</td>
                     <td>{{ $course->code }}</td>
                     <td>{{ $course->description }}</td>
+                    <td>{{ $course->ADM }}</td>
 
                     <td>
                         <div class="d-flex justify-content-end">

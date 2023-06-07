@@ -15,4 +15,15 @@ class course extends Model
         'description',
         // other fillable fields...
     ];
+    public function teacher(){
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function unit(){
+        return $this->hasMany(Unit::class);
+    }
+
+    public function student(){
+        return $this->belongsToMany(Student::class);
+    }
 }

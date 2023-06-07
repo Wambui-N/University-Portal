@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('courseId');
             $table->string('code');
             $table->string('name');
+            $table->foreignId('ADM')->constrained('teachers')->onDelete('cascade');
             $table->text('description');
             $table->timestamps();
         });

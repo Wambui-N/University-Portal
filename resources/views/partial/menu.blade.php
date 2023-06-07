@@ -68,8 +68,18 @@
                                 <div>
                                     <p class="d-block p-0 m-0 fw-normal text-uppercase text-primary">
                                         {{ Auth::User()->name }}</p>
-                                    <p class="d-block p-0 m-0 text-start fw-light text-primary">
-                                        {{ Auth::User()->role }}</p>
+                                        <p class="d-block p-0 m-0 text-start fw-light text-primary">
+                                            @if (Auth::check())
+                                                @if (Auth::user()->usertype == '0')
+                                                    Student
+                                                @elseif (Auth::user()->usertype == '1')
+                                                    Teacher
+                                                @elseif (Auth::user()->usertype == '2')
+                                                    Admin
+                                                @endif
+                                            @endif
+                                        </p>
+                                        
                                 </div>
                             </button>
                         </div>
@@ -110,9 +120,9 @@
 
                         @yield('sidebar_menu')
 
-                        <li class="nav-item">
+                        <li class="nav-item rounded my-2 bg-danger">
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); logout();" class="nav-link">
-                                <i class="nav-icon fas fa-solid fa-user" style="color: #dc3545;"></i>
+                                <i class="nav-icon fas fa-solid fa-user" style="color: #fff;"></i>
 
                                 <p>
                                     Log Out

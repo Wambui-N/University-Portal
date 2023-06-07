@@ -10,7 +10,7 @@
         </a>
 
     </li>
-    <li class="nav-item">
+    <li class="nav-item rounded my-2  bg-primary">
         <a href="{{ url('/dashboard/user_management') }}" class="nav-link">
             <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
             <p>
@@ -18,17 +18,17 @@
             </p>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item rounded my-2 bg-primary">
         <a href="{{ url('/dashboard/course_management') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-book-copy" style="color: #fff;"></i>
+            <i class="nav-icon fas fa-solid fa-book" style="color: #fff;"></i>
             <p>
                 Course Management
             </p>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item rounded my-2  bg-primary">
         <a href="{{ url('/dashboard/communication') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-envelopes" style="color: #ffffff;"></i>
+            <i class="nav-icon fas fa-solid fa-envelope" style="color: #ffffff;"></i>
             <p>
                 Communication
             </p>
