@@ -39,9 +39,9 @@
                 <tr>
                     <!-- Display course details -->
                     <td>{{ $course->name }}</td>
+                    <td>{{ $course->teacher->ADM }}</td>
                     <td>{{ $course->code }}</td>
                     <td>{{ $course->description }}</td>
-                    <td>{{ $course->ADM }}</td>
 
                     <td>
                         <div class="d-flex justify-content-end">
@@ -79,12 +79,17 @@
                                     class="row g-3 needs-validation" novalidate>
                                     @csrf
                                     @method('PUT')
-                                    <div class="col-md-7">
+                                    <div class="col-md-12">
                                         <label for="validationCustom01" class="form-label">Title</label>
                                         <input name="name" type="text" value="{{ old('name', $course->name ?? '') }}"
                                             class="form-control" id="validationCustom01" required>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-12">
+                                        <label for="validationCustom01" class="form-label">Teacher</label>
+                                        <input name="name" type="text" value="{{ old('ADM', $course->ADM ?? '') }}"
+                                            class="form-control" id="validationCustom01" required>
+                                    </div>
+                                    <div class="col-md-12">
                                         <label for="validationCustom01" class="form-label">Description</label>
                                         <textarea name="description" type="text" class="form-control" id="validationCustom01" rows="5" required>{{ old('name', $course->description ?? '') }}</textarea>
                                     </div>
@@ -118,13 +123,17 @@
                 <div class="modal-body">
                     <form action="{{ route('courses.store') }}" method="POST" class="row g-3 needs-validation" novalidate>
                         @csrf
-                        <div class="col-md-7">
+                        <div class="col-md-12">
                             <label for="validationCustom01" class="form-label">Title</label>
                             <input name="name" type="text" class="form-control" id="validationCustom01" required>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-12">
+                            <label for="validationCustom01" class="form-label">Teacher</label>
+                            <input name="ADM" type="text" class="form-control" id="validationCustom01" required>
+                        </div>
+                        <div class="col-md-12">
                             <label for="validationCustom01" class="form-label">Description</label>
-                            <textarea name="description" type="text" class="form-control" id="validationCustom01" rows="3" required></textarea>
+                            <textarea name="description" type="text" class="form-control" id="validationCustom01" rows="5" required></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

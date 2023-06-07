@@ -16,6 +16,7 @@ use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Admin;
 use App\Helpers\Helper;
+use App\Helpers\UserHelper;
 
 class RegisteredUserController extends Controller
 {
@@ -61,29 +62,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        switch ($request->usertype) {
-            case 'student':
-                Student::create([
-                    'ADM' => $ADM,
-                    //'additional_column' => 'value', // Add any additional columns specific to the student table
-                ]);
-                break;
-            case 'teacher':
-                Teacher::create([
-                    'ADM' => $ADM,
-                    //'additional_column' => 'value', // Add any additional columns specific to the teacher table
-                ]);
-                break;
-            case 'admin':
-                Admin::create([
-                    'ADM' => $ADM,
-                    //'additional_column' => 'value', // Add any additional columns specific to the admin table
-                ]);
-                break;
-            default:
-                // Handle invalid user type
-                break;
-        }
+        UserHelper::createUser($request->usertype, $ADM);
+
 
         Auth::login($user);
 
