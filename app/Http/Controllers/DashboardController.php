@@ -14,10 +14,10 @@ class DashboardController extends Controller
                 return view('student.dashboard');
             }
             elseif (Auth::user()->usertype=='1') {
-                return view('teacher.dashboard');
+                return view('teacher.assets.overview');
             }
             elseif (Auth::user()->usertype=='2') {
-                return view('admin.assets.default');
+                return view('admin.assets.overview');
             }
         }
     }

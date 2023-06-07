@@ -33,45 +33,46 @@ class CourseController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    // Generate unique identifier
-    $admissionNumberPrefix = 'KU-';
-    $admissionNumberLength = 6;
-    $ADM = Helper::NumberIDGenerator('users', [], $admissionNumberPrefix, $admissionNumberLength);
+    {
+        // Generate unique identifier
+        //remove?????
+        $admissionNumberPrefix = 'KU-';
+        $admissionNumberLength = 6;
+        $ADM = Helper::NumberIDGenerator('users', [], $admissionNumberPrefix, $admissionNumberLength);
 
-    // Validate the form input
-    $validatedData = $request->validate([
-        'name' => 'required',
-        'description' => 'required',
-        'ADM' => ['required', Rule::exists('teachers', 'ADM'),],
-    ]);
+        // Validate the form input
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'ADM' => ['required', Rule::exists('teachers', 'ADM'),],
+        ]);
 
-    // Find the teacher with the entered ADM value
-    $teacher = DB::table('teachers')->where('ADM', $request->input('ADM'))->first();
-
-    if (!$teacher) {
-        // If teacher not found, return with error message
+        // Find the teacher with the entered ADM value
         $teacher = DB::table('teachers')->where('ADM', $request->input('ADM'))->first();
+
+        if (!$teacher) {
+            // If teacher not found, return with error message
+            $teacher = DB::table('teachers')->where('ADM', $request->input('ADM'))->first();
+        }
+
+        // Create a new course instance
+        $course = new Course();
+        $course->name = $request->input('name');
+        $course->teacher_id = $teacher->id;
+        // Generate code
+        $course->code = Helper::NumberIDGenerator('courses', [], 'CO-', 3);
+        $course->description = $request->input('description');
+
+        // Generate course_id
+        $course->courseId = Helper::NumberIDGenerator('courses', [], '', 3);
+
+        $course->save();
+
+        UserHelper::createUser($request->usertype, $ADM);
+
+        // Redirect to a relevant page or return a response as needed
+        return redirect()->route('courses.index')->with('success', 'Course created successfully.');
     }
-
-    // Create a new course instance
-    $course = new Course();
-    $course->name = $request->input('name');
-    $course->teacher_id = $teacher->id;
-    // Generate code
-    $course->code = Helper::NumberIDGenerator('courses', [], 'CO-', 3);
-    $course->description = $request->input('description');
-
-    // Generate course_id
-    $course->courseId = Helper::NumberIDGenerator('courses', [], '', 3);
-
-    $course->save();
-    
-    UserHelper::createUser($request->usertype, $ADM);
-
-    // Redirect to a relevant page or return a response as needed
-    return redirect()->route('courses.index')->with('success', 'Course created successfully.');
-}
 
 
 

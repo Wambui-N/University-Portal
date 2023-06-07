@@ -1,17 +1,95 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('partial.menu')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in Teacher!") }}
-                </div>
+@section('sidebar_menu')
+    <li class="nav-item menu-open">
+        <a href="{{ url('/dashboard') }}" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p class="fs-5">
+                Dashboard
+            </p>
+        </a>
+
+    </li>
+    <li class="nav-item rounded my-2 bg-primary">
+        <a href="{{ url('/dashboard/teacher/course_management') }}" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-book" style="color: #fff;"></i>
+            <p>
+                Course Management
+            </p>
+        </a>
+    </li>
+    <li class="nav-item rounded my-2  bg-primary">
+        <a href="{{ url('/dashboard/grade_management') }}" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
+            <p>
+                Grade Management
+            </p>
+        </a>
+    </li>
+    <li class="nav-item rounded my-2  bg-primary">
+        <a href="{{ url('/dashboard/student_perfomance') }}" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
+            <p>
+                Student Perfomance
+            </p>
+        </a>
+    </li>
+    <li class="nav-item rounded my-2  bg-primary">
+        <a href="{{ url('/dashboard/teacher/communication') }}" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-envelope" style="color: #ffffff;"></i>
+            <p>
+                Communication
+            </p>
+        </a>
+    </li>
+@endsection
+
+@section('dashboard_stuff')
+    @yield('func')
+@endsection
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="d-flex flex-column">
+                        <div class="d-flex flex-row justify-content-between">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Usertype</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>

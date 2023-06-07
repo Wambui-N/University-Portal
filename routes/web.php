@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,4 +56,15 @@ Route::resource('/dashboard/course_management', CourseController::class)->names(
     'edit' => 'courses.edit',
     'update' => 'courses.update',
     'destroy' => 'courses.destroy',
+]);
+
+// CRUD Unit
+Route::resource('/dashboard/teacher/course_management', UnitController::class)->names([
+    'index' => 'units.index',
+    'create' => 'units.create',
+    'store' => 'units.store',
+    'show' => 'units.show',
+    'edit' => 'units.edit',
+    'update' => 'units.update',
+    'destroy' => 'units.destroy',
 ]);
