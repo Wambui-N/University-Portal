@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\unit;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Helpers\Helper;
 use Illuminate\Validation\Rule;
@@ -16,9 +17,10 @@ class UnitController extends Controller
     public function index(Request $request)
     {
         $unitType = $request->query('unit_type');
-        $units = Unit::all();
-        return view('teacher.assets.course_management', compact('units'));
+        $courses = Course::with('units')->get(); // Eager load the units relationship
+        return view('teacher.assets.course_management', compact('courses'));
     }
+
 
 
     /**
@@ -26,7 +28,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        //F
     }
 
     /**
@@ -38,28 +40,33 @@ class UnitController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'courseId' => 'required|exists:courses,courseId',
+            'courseId' => 'required|exists:courses,id',
         ]);
 
-        // Find the course_Id
-        $course = DB::table('courses')->where('courseId', $request->input('courseID'))->first();
+        // Find the course
+        $course = Course::find($request->input('courseId'));
+
+        // Check if the course has less than six units
+        $unitCount = $course->units()->count();
+        if ($unitCount >= 6) {
+            return redirect()->back()->withErrors('The course already has the maximum number of units.');
+        }
 
         // Create a new unit instance
         $unit = new Unit();
         $unit->name = $request->input('name');
-        $unit->code = Helper::NumberIDGenerator('units', [], 'UN-', 3);
         $unit->description = $request->input('description');
 
         // Associate the unit with the course
         $unit->course()->associate($course);
 
-
         $unit->save();
-
 
         // Redirect to a relevant page or return a response as needed
         return redirect()->route('units.index')->with('success', 'Unit added successfully.');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -72,7 +79,7 @@ class UnitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
         $unit = unit::find($id);
         return view('teacher.assets.unit_edit', compact('unit'));

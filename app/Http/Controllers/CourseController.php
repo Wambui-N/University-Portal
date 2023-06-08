@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Helpers\Helper;
 use Illuminate\Validation\Rule;
@@ -105,17 +106,28 @@ class CourseController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'ADM' => ['required', Rule::exists('teachers', 'ADM'),],
+            'ADM' => ['required', Rule::exists('teachers', 'ADM')],
         ]);
+
+        // Find the teacher with the entered ADM value
+        $teacher = Teacher::where('ADM', $request->input('ADM'))->first();
+
+        if (!$teacher) {
+            // If teacher not found, return with error message
+            return redirect()->back()->withErrors('Teacher not found.');
+        }
 
         // Update the course's information
         $course->name = $request->input('name');
         $course->description = $request->input('description');
+        $course->teacher_id = $teacher->id; // Associate the course with the teacher
         $course->save();
 
         // Redirect to a relevant page or return a response as needed
         return redirect()->route('courses.index')->with('success', 'Course updated successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

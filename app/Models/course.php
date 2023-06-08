@@ -19,8 +19,8 @@ class course extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function unit(){
-        return $this->hasMany(Unit::class);
+    public function units(){
+        return $this->hasMany(Unit::class, 'courseId');
     }
 
     public function student(){
