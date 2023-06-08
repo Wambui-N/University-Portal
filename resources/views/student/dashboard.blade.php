@@ -1,10 +1,26 @@
 @extends('partial.menu')
 @section('sidebar_menu')
-    <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
+<li class="nav-item menu-open">
+    <a href="{{ url('/dashboard') }}" class="nav-link">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p class="fs-5">
+            Dashboard
+        </p>
+    </a>
+</li>
+    <li class="nav-item rounded my-2  bg-primary">
+        <a href="{{ url('/dashboard/course_enrollment') }}" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
             <p>
-                Widgets
+                Course Enrollment
+            </p>
+        </a>
+    </li>
+    <li class="nav-item rounded my-2 bg-primary">
+        <a href="{{ url('/dashboard/grade_book') }}" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-book" style="color: #fff;"></i>
+            <p>
+                Grade Book
             </p>
         </a>
     </li>
@@ -14,11 +30,5 @@
 
 @section('dashboard_stuff')
     <div>
-        <h1>LOREM IPSUM</h1>
-
-        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim velit quibusdam necessitatibus esse quo magnam,
-            dignissimos eligendi nostrum sed asperiores, inventore explicabo architecto quos facilis, eaque accusantium
-            molestiae
-            reiciendis repellat?</p>
     </div>
 @endsection

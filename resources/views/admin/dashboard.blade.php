@@ -8,7 +8,6 @@
                 Dashboard
             </p>
         </a>
-
     </li>
     <li class="nav-item rounded my-2  bg-primary">
         <a href="{{ url('/dashboard/user_management') }}" class="nav-link">

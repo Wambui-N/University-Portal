@@ -81,9 +81,15 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        $unit = unit::find($id);
+        $unit = Unit::find($id);
+
+        if (!$unit) {
+            return redirect()->route('units.index')->withErrors('The selected unit does not exist.');
+        }
+
         return view('teacher.assets.unit_edit', compact('unit'));
     }
+
 
     /**
      * Update the specified resource in storage.
