@@ -11,10 +11,10 @@
 
     </li>
     <li class="nav-item rounded my-2 bg-primary">
-        <a href="{{ url('/dashboard/teacher/course_management') }}" class="nav-link">
+        <a href="{{ url('/dashboard/teacher/courses') }}" class="nav-link">
             <i class="nav-icon fas fa-solid fa-book" style="color: #fff;"></i>
             <p>
-                Course Management
+                Courses
             </p>
         </a>
     </li>

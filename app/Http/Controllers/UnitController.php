@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\unit;
 use App\Models\Course;
 use Illuminate\Http\Request;
-use App\Helpers\Helper;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +17,7 @@ class UnitController extends Controller
     {
         $unitType = $request->query('unit_type');
         $courses = Course::with('units')->get(); // Eager load the units relationship
-        return view('teacher.assets.course_management', compact('courses'));
+        return view('teacher.assets.units', compact('courses'));
     }
 
 
@@ -71,10 +70,15 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(unit $unit)
+    public function show($course_id)
     {
-        //
+        $course = Course::findOrFail($course_id);
+        $units = $course->units;
+
+        return view('teacher.assets.units', compact('units'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

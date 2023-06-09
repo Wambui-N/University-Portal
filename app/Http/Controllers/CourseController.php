@@ -99,6 +99,8 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        //dd($id);
         // Find the course
         $course = Course::find($id);
 
@@ -121,7 +123,7 @@ class CourseController extends Controller
         $course->name = $request->input('name');
         $course->description = $request->input('description');
         $course->teacher_id = $teacher->id; // Associate the course with the teacher
-        $course->save();
+        $course->update();
 
         // Redirect to a relevant page or return a response as needed
         return redirect()->route('courses.index')->with('success', 'Course updated successfully.');

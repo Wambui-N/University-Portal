@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DisplayUnitController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::get('/dashboard/communication',function(){
     return view ('admin/assets/communication');
 });
 
+
 // CRUD User
 Route::resource('/dashboard/user_management', UserController::class)->names([
     'index' => 'users.index',
@@ -58,8 +60,13 @@ Route::resource('/dashboard/course_management', CourseController::class)->names(
     'destroy' => 'courses.destroy',
 ]);
 
+
+Route::get('/dashboard/teacher/courses', [DisplayUnitController::class, 'index'])->name('units.index');
+
+
+
 // CRUD Unit
-Route::resource('/dashboard/teacher/course_management', UnitController::class)->names([
+Route::resource('/dashboard/course/units', UnitController::class)->names([
     'index' => 'units.index',
     'create' => 'units.create',
     'store' => 'units.store',

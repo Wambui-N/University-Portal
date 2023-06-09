@@ -31,7 +31,6 @@
                 <th scope="col">Teacher</th>
                 <th scope="col">Description</th>
                 <th scope="col"> </th>
-                <th scope="col"> </th>
             </tr>
         </thead>
         <tbody>
@@ -86,7 +85,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <label for="validationCustom01" class="form-label">Teacher</label>
-                                        <input name="name" type="text" value="{{ old('ADM', $course->ADM ?? '') }}"
+                                        <input name="ADM" type="text" value="{{ old('ADM', $course->ADM ?? '') }}"
                                             class="form-control" id="validationCustom01" required>
                                     </div>
                                     <div class="col-md-12">
