@@ -22,7 +22,7 @@
                             <p class="card-text">{{ $course->description }}</p>
                             <div class="d-flex justify-content-between">
                                 <p> </p>
-                                <a href="{{ route('units.show', $course->id) }}"
+                                <a href="{{ route('units.index', $course->id) }}"
                                     class="btn btn-outline-secondary btn-sm">View</a>
                             </div>
                         </div>

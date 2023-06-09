@@ -16,9 +16,10 @@ class UnitController extends Controller
     public function index(Request $request)
     {
         $unitType = $request->query('unit_type');
-        $courses = Course::with('units')->get(); // Eager load the units relationship
+        $courses = Course::with('units')->get();
         return view('teacher.assets.units', compact('courses'));
     }
+
 
 
 

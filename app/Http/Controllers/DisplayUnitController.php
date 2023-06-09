@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\teacher;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
 
 class DisplayUnitController extends Controller
 {
@@ -12,8 +15,9 @@ class DisplayUnitController extends Controller
      */
     public function index(Request $request)
     {
-        $unitType = $request->query('unit_type');
-        $courses = Course::with('units')->get(); // Eager load the units relationship
+        $unitType = $request->query('course_type');
+        $teacherId = auth()->user()->teacher->id;
+        $courses = Course::where('teacher_id', $teacherId)->get();
         return view('teacher.assets.courses', compact('courses'));
     }
 
