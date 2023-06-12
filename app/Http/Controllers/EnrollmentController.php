@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\course;
 use App\Models\courses_students;
 use App\Models\unit;
+use App\Models\User;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,16 @@ class EnrollmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::with('units,teacher')->get();
-        return view('student.assets.course_enrollment', compact('courses,units,teachers'));
+        $courseId = $request->query('courseId');
+        $teacher_id = $request->query('teacher_id');
+        return view('student.assets.course_enrollment', [
+            'courses' => course::all(),
+            'units' => course::with('units')->findOrFail($courseId),
+            'teachers' => Teacher::with('teachers')->findOrFail($teacher_id),
+            /* 'courses_students' => courses_students::all(), */
+        ]);
     }
 
     /**

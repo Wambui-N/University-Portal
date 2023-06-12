@@ -9,7 +9,7 @@
     </a>
 </li>
     <li class="nav-item rounded my-2  bg-primary">
-        <a href="{{ url('/dashboard/course_enrollment') }}" class="nav-link">
+        <a href="{{ url('/dashboard/student/enrollment') }}" class="nav-link">
             <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
             <p>
                 Course Enrollment
@@ -29,6 +29,5 @@
 @endsection
 
 @section('dashboard_stuff')
-    <div>
-    </div>
+    @yield('func')
 @endsection
