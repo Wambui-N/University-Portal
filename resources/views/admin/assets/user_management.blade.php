@@ -43,7 +43,7 @@
 
 
 
-    <table class="table table-striped-columns">
+    <table class="table table-borderless bg-light">
         <thead>
             <tr>
                 <th scope="col">Name</th>

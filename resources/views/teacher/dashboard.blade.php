@@ -19,7 +19,7 @@
         </a>
     </li>
     <li class="nav-item rounded my-2  bg-primary">
-        <a href="{{ url('/dashboard/grade_management') }}" class="nav-link">
+        <a href="#" class="nav-link">
             <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
             <p>
                 Grade Management
@@ -27,7 +27,7 @@
         </a>
     </li>
     <li class="nav-item rounded my-2  bg-primary">
-        <a href="{{ url('/dashboard/student_perfomance') }}" class="nav-link">
+        <a href="#" class="nav-link">
             <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
             <p>
                 Student Perfomance

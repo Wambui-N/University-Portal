@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AdminLTE 3 | Dashboard</title>
 
+    <link rel="stylesheet" href="{{ asset('resources/css/custom.css')}}">
     <!--Bootstrap-->
     <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css') }}" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -14,7 +15,6 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -38,6 +38,7 @@
 
 
 <!--Student Dashboard-->
+
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
@@ -66,18 +67,18 @@
                                 <div>
                                     <p class="d-block p-0 m-0 fw-normal text-uppercase text-primary">
                                         {{ Auth::User()->name }}</p>
-                                        <p class="d-block p-0 m-0 text-start fw-light text-primary">
-                                            @if (Auth::check())
-                                                @if (Auth::user()->usertype == '0')
-                                                    Student
-                                                @elseif (Auth::user()->usertype == '1')
-                                                    Teacher
-                                                @elseif (Auth::user()->usertype == '2')
-                                                    Admin
-                                                @endif
+                                    <p class="d-block p-0 m-0 text-start fw-light text-primary">
+                                        @if (Auth::check())
+                                            @if (Auth::user()->usertype == '0')
+                                                Student
+                                            @elseif (Auth::user()->usertype == '1')
+                                                Teacher
+                                            @elseif (Auth::user()->usertype == '2')
+                                                Admin
                                             @endif
-                                        </p>
-                                        
+                                        @endif
+                                    </p>
+
                                 </div>
                             </button>
                         </div>
@@ -107,12 +108,13 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
-                        
+
 
                         @yield('sidebar_menu')
 
                         <li class="nav-item rounded my-2 bg-danger">
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); logout();" class="nav-link">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); logout();"
+                                class="nav-link">
                                 <i class="nav-icon fas fa-solid fa-user" style="color: #fff;"></i>
 
                                 <p>
@@ -134,13 +136,9 @@
 
             <!-- Main content -->
             <section class="content">
-                <div class="container-fluid">
-                    
-                    <!-- /.row -->
-                    <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
-
-                @yield('dashboard_stuff')
+                <div class="">
+                    @yield('dashboard_stuff')
+                </div>
             </section>
             <!-- /.content -->
         </div>
