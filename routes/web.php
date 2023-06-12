@@ -74,4 +74,4 @@ Route::resource('/dashboard/course/units', UnitController::class)->names([
     'edit' => 'units.edit',
     'update' => 'units.update',
     'destroy' => 'units.destroy',
-]);
+]); 

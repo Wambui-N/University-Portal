@@ -15,13 +15,11 @@ class UnitController extends Controller
      */
     public function index(Request $request)
     {
+        $courseId = $request->query('courseId');
         $unitType = $request->query('unit_type');
-        $courses = Course::with('units')->get();
-        return view('teacher.assets.units', compact('courses'));
+        $course = Course::with('units')->findOrFail($courseId);
+        return view('teacher.assets.units', compact('course'));;
     }
-
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -40,11 +38,10 @@ class UnitController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'courseId' => 'required|exists:courses,id',
+            'courseId' => 'required|exists:courses,courseId'
         ]);
-
         // Find the course
-        $course = Course::find($request->input('courseId'));
+        $course = Course::find($request->query('courseId'));
 
         // Check if the course has less than six units
         $unitCount = $course->units()->count();

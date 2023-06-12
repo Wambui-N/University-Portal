@@ -13,6 +13,7 @@ class unit extends Model
         'name',
         'code',
         'description',
+        'courseId',
         // other fillable fields...
     ];
 

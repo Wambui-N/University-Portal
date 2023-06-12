@@ -1,26 +1,25 @@
 @extends('teacher.dashboard')
 
 @section('func')
-    @foreach ($courses as $course)
-        @foreach ($course->units as $unit)
-        <div class="py-3">
-            <div class="d-flex justify-content-between mb-1">
-                <p class="mb-0 fs-5 fw-bold">{{$course->name}}</p>
-                <button type="button" class="btn btn-primary btn-sm border-0 my-0" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">
-                    <i class="fa-solid fa-plus" style="color: #ffffff"></i>
-                </button>
-            </div>
-            <table class="table table-striped-columns">
-                <thead>
-                    <tr>
-                        <th scope="col">Code</th>
-                        <th scope="col">Unit</th>
-                        <th scope="col">Description</th>
-                        <th scope="col"> </th>
-                    </tr>
-                </thead>
-                <tbody>
+    <div class="py-3">
+        <div class="d-flex justify-content-between mb-1">
+            <p class="mb-0 fs-5 fw-bold">{{ $course->name }}</p>
+            <button type="button" class="btn btn-primary btn-sm border-0 my-0" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">
+                <i class="fa-solid fa-plus" style="color: #ffffff"></i>
+            </button>
+        </div>
+        <table class="table table-striped-columns">
+            <thead>
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Description</th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($course->units as $unit)
                     <tr>
                         <!-- Display unit details -->
                         <td>{{ $unit->code }}</td>
@@ -82,11 +81,11 @@
                             </div>
                         </div>
                     </div>
-                </tbody>
-            </table>
-        </div>
-        @endforeach
-    @endforeach
+                    @endforeach
+
+            </tbody>
+        </table>
+    </div>
     <!--New unit Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -97,7 +96,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('units.store') }}" method="POST" class="row g-3 needs-validation" novalidate>
+                    <form action="{{ route('units.store') }}" method="POST" class="row g-3 needs-validation">
                         @csrf
                         <div class="col-md-12">
                             <label for="validationCustom01" class="form-label">Unit</label>
