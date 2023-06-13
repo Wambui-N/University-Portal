@@ -5,39 +5,43 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h4 class="m-0 fs-4 text-secondary">Course</h4>
+                    <h4 class="m-0 fs-4 text-secondary">Course Enrollment</h4>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
 
     <!-- /.content-header -->
-    {{-- <div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
                 <p class="fs-5 fw-bold">Enrolled Courses</p>
-                @foreach ($courses_students as $enrollment)
-                    <div class="row">
+                <div class="row">
+
+                    @foreach ($courses_students as $enrollment)
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <div class="card">
                                 <div class="card-body">
-
-                                    <h5 class="card-title">Special title treatment</h5>
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional
-                                        content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    @foreach ($courses as $course)
+                                        @if ($course->code == $enrollment->code)
+                                            <p class="card-title fw-bold">{{ $course->name }}</p>
+                                            <p class="card-text">{{ $course->description }}</p>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
+
             </div><!-- /.col -->
         </div><!-- /.row -->
-    </div><!-- /.container-fluid --> --}}
+    </div><!-- /.container-fluid -->
 
 
     <div class="container-fluid">
         <div class="row">
+            <p class="fs-5 fw-bold">Available Courses</p>
             @foreach ($courses as $course)
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <div class="card h-100">
@@ -64,7 +68,7 @@
                                 <input type="hidden" name="code" value="{{ $course->code }}">
                                 <button type="submit" class="btn btn-primary">Enroll</button>
                             </form>
-                            
+
                         </div>
                     </div>
                 </div>

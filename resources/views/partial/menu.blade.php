@@ -92,7 +92,7 @@
         <aside class="main-sidebar bg-light border-end">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
-                <span class="brand-text font-weight-light">KU</span>
+                <span class="brand-text font-weight-light">University</span>
             </a>
 
             <!-- Sidebar -->

@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Teacher;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EnrollmentController extends Controller
 {
@@ -47,19 +48,28 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        /* $validatedData = $request->validate([
+        $validatedData = $request->validate([
             'student_id' => 'required',
             'course_id' => 'required',
-        ]); */
+        ]);
+
         //get data from the form
         $ADM = $request->input('ADM');
         $code = $request->input('code');
 
-        //create a new enrollment
-        $enrollment = new courses_students();
-        $enrollment->ADM = $ADM;
-        $enrollment->code = $code;
-        $enrollment->save();
+        // Check if the student is already enrolled in the course
+        $enrollment = DB::table('courses_students')
+            ->where('ADM', $ADM)
+            ->where('code', $code)
+            ->first();
+
+        if (!$enrollment) {
+            //create a new enrollment
+            $enrollment = new courses_students();
+            $enrollment->ADM = $ADM;
+            $enrollment->code = $code;
+            $enrollment->save();
+        }
 
         return redirect()->route('enrollments.index');
     }
