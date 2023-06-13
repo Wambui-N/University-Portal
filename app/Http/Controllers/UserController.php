@@ -167,5 +167,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         DB::table('users')->where('id', $id)->delete();
+        //redirect
+        return redirect()->route('users.index')->with('success', 'Unit deleted successfully.');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\Helper;
 
 class UnitController extends Controller
 {
@@ -26,7 +27,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //F
+        //
     }
 
     /**
@@ -34,18 +35,28 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
+        // Generate unique identifier
+        $unit_code = Helper::NumberIDGenerator('units', [], 'UN-', 3);
+
         // Validate the form input
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'courseId' => 'required|exists:courses,courseId'
+            'courseId' => 'required',
         ]);
-        // Find the course
-        $course = Course::find($request->query('courseId'));
+
+        //find the courseId on the course table
+        $course = DB::table('courses')->where('courseId', $request->input('courseId'))->first();
+        $courseId = $course->courseId;
+
+        //retrieve the units from the course
+        $units = DB::table('units')
+            ->join('courses', 'units.courseId', '=', 'courses.courseId')
+            ->where('courses.courseId', $courseId)
+            ->count();
 
         // Check if the course has less than six units
-        $unitCount = $course->units()->count();
-        if ($unitCount >= 6) {
+        if ($units >= 6) {
             return redirect()->back()->withErrors('The course already has the maximum number of units.');
         }
 
@@ -53,14 +64,13 @@ class UnitController extends Controller
         $unit = new Unit();
         $unit->name = $request->input('name');
         $unit->description = $request->input('description');
-
-        // Associate the unit with the course
-        $unit->course()->associate($course);
+        $unit->courseId = $courseId;
+        $unit->code = $unit_code;
 
         $unit->save();
 
         // Redirect to a relevant page or return a response as needed
-        return redirect()->route('units.index')->with('success', 'Unit added successfully.');
+        return redirect()->route('units.index', ['courseId' => $course->id]);
     }
 
 
@@ -113,18 +123,24 @@ class UnitController extends Controller
         $unit->description = $request->input('description');
         $unit->save();
 
+        // Retrieve the course record
+        $course = DB::table('courses')->where('courseId', $request->input('courseId'))->first();
+
         // Redirect to a relevant page or return a response as needed
-        return redirect()->route('units.index')->with('success', 'Unit updated successfully.');
+        return redirect()->route('units.index', ['courseId' => $course->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         DB::table('units')->where('id', $id)->delete();
 
+        // Retrieve the course record
+        $course = DB::table('courses')->where('courseId', $request->input('courseId'))->first();
+
         // Redirect to a relevant page or return a response as needed
-        return redirect()->route('units.index')->with('success', 'Unit deleted successfully.');
+        return redirect()->route('units.index', ['courseId' => $course->id]);
     }
 }

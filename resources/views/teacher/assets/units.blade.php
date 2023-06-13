@@ -67,6 +67,7 @@
                                                 value="{{ old('name', $unit->name ?? '') }}" class="form-control"
                                                 id="validationCustom01" required>
                                         </div>
+                                        <input type="hidden" name="courseId" value="{{$unit->courseId }}">
                                         <div class="col-md-12">
                                             <label for="validationCustom01" class="form-label">Description</label>
                                             <textarea name="description" type="text" class="form-control" id="validationCustom01" rows="5" required>{{ old('name', $unit->description ?? '') }}</textarea>
@@ -96,12 +97,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('units.store') }}" method="POST" class="row g-3 needs-validation">
+                    <form action="{{ route('units.store') }}" method="POST" class="row g-3">
                         @csrf
                         <div class="col-md-12">
                             <label for="validationCustom01" class="form-label">Unit</label>
                             <input name="name" type="text" class="form-control" id="validationCustom01" required>
                         </div>
+                        <input type="hidden" name="courseId" value="{{$unit->courseId }}">
                         <div class="col-md-12">
                             <label for="validationCustom01" class="form-label">Description</label>
                             <textarea name="description" type="text" class="form-control" id="validationCustom01" rows="5" required></textarea>

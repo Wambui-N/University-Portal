@@ -20,7 +20,7 @@ class course extends Model
     }
 
     public function units(){
-        return $this->hasMany(Unit::class, 'courseId');
+        return $this->hasMany(Unit::class, 'courseId', 'courseId');
     }
 
     public function student(){

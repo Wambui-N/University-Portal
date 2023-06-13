@@ -13,17 +13,19 @@ class EnrollmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $courseId = $request->query('courseId');
-        $teacher_id = $request->query('teacher_id');
+        $courses = Course::with('units')->get();
+        $teachers = Teacher::with('course')->get();
+        $users = User::with('teacher')->get();
+    
         return view('student.assets.course_enrollment', [
-            'courses' => course::all(),
-            'units' => course::with('units')->findOrFail($courseId),
-            'teachers' => Teacher::with('teachers')->findOrFail($teacher_id),
-            /* 'courses_students' => courses_students::all(), */
+            'courses' => $courses,
+            'teachers' => $teachers,
+            'users' => $users,
         ]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
