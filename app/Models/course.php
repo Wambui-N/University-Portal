@@ -24,6 +24,6 @@ class course extends Model
     }
 
     public function student(){
-        return $this->belongsToMany(Student::class);
+        return $this->belongsToMany(Student::class, 'courses_students', 'code', 'ADM')->as('enrollment')->withTimestamps();
     }
 }

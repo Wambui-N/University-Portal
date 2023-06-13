@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\course;
 use App\Models\courses_students;
+use App\Models\student;
 use App\Models\unit;
 use App\Models\User;
 use App\Models\Teacher;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
@@ -18,14 +21,18 @@ class EnrollmentController extends Controller
         $courses = Course::with('units')->get();
         $teachers = Teacher::with('course')->get();
         $users = User::with('teacher')->get();
-    
+        $students = Student::all();
+        $courses_students = courses_students::all();
+
         return view('student.assets.course_enrollment', [
             'courses' => $courses,
             'teachers' => $teachers,
             'users' => $users,
+            'students' => $students,
+            'courses_students' => $courses_students,
         ]);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -40,7 +47,21 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /* $validatedData = $request->validate([
+            'student_id' => 'required',
+            'course_id' => 'required',
+        ]); */
+        //get data from the form
+        $ADM = $request->input('ADM');
+        $code = $request->input('code');
+
+        //create a new enrollment
+        $enrollment = new courses_students();
+        $enrollment->ADM = $ADM;
+        $enrollment->code = $code;
+        $enrollment->save();
+
+        return redirect()->route('enrollments.index');
     }
 
     /**

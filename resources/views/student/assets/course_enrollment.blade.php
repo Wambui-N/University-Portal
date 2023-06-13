@@ -11,6 +11,31 @@
         </div><!-- /.container-fluid -->
     </div>
 
+    <!-- /.content-header -->
+    {{-- <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <p class="fs-5 fw-bold">Enrolled Courses</p>
+                @foreach ($courses_students as $enrollment)
+                    <div class="row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid --> --}}
+
+
     <div class="container-fluid">
         <div class="row">
             @foreach ($courses as $course)
@@ -20,11 +45,10 @@
                             <h5 class="card-title">{{ $course->name }}</h5>
                             <p class="card-text">{{ $course->description }}</p>
 
-
                             @foreach ($teachers as $teacher)
                                 @foreach ($users as $user)
                                     @if ($teacher->id == $course->teacher_id && $user->ADM == $teacher->ADM)
-                                        <p>{{$user->name}}</p>
+                                        <p>{{ $user->name }}</p>
                                     @endif
                                 @endforeach
                             @endforeach
@@ -34,7 +58,13 @@
                                 <p class="card-text">{{ $unit->name }}</p>
                             @endforeach
 
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <form action="{{ route('enrollments.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="ADM" value="{{ auth()->user()->ADM }}">
+                                <input type="hidden" name="code" value="{{ $course->code }}">
+                                <button type="submit" class="btn btn-primary">Enroll</button>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>
