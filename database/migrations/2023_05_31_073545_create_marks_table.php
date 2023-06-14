@@ -13,10 +13,17 @@ return new class extends Migration
     {
         Schema::create('marks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ADM')->constrained('students')->onDelete('cascade');
-            $table->foreignId('code')->constrained('units')->onDelete('cascade');
+            $table->string('ADM');
+            $table->foreign('ADM')->references('ADM')->on('students')->onDelete('cascade');
+            $table->string('code');
+            $table->foreign('code')->references('code')->on('units')->onDelete('cascade');
             $table->string('marks');
             $table->timestamps();
+        });
+
+        Schema::table('marks', function (Blueprint $table) {
+            $table->index('ADM'); 
+            $table->index('code'); 
         });
     }
 

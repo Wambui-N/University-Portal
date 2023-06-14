@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->id();            
             $table->foreignId('courseId')->constrained('courses')->onDelete('cascade');
-            $table->string('code');
+            $table->string('code')->index();
             $table->string('name');
             $table->text('description');            
             $table->timestamps();
