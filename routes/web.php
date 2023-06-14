@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DisplayUnitController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\GradesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,4 +83,15 @@ Route::resource('/dashboard/student/enrollment', EnrollmentController::class)->n
     'edit' => 'enrollments.edit',
     'update' => 'enrollments.update',
     'destroy' => 'enrollments.destroy',
+]);
+
+//CRUD Grades
+Route::resource('/dashboard/teacher/grade_management', GradesController::class)->names([
+    'index' => 'grades.index',
+    'create' => 'grades.create',
+    'store' => 'grades.store',
+    'show' => 'grades.show',
+    'edit' => 'grades.edit',
+    'update' => 'grades.update',
+    'destroy' => 'grades.destroy',
 ]);

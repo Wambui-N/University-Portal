@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AdminLTE 3 | Dashboard</title>
 
-    <link rel="stylesheet" href="{{ asset('resources/css/custom.css')}}">
+    <link rel="stylesheet" href="{{ asset('resources/css/custom.css') }}">
     <!--Bootstrap-->
     <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css') }}" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -33,11 +33,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    {{-- Handsontable --}}
+    <link rel="stylesheet" href="{{ asset('css/handsontable.full.min.css') }}" />
+
 </head>
 
-
-
-<!--Student Dashboard-->
+<!--Dashboard-->
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -141,11 +142,6 @@
             <!-- /.content -->
         </div>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 
@@ -171,7 +167,7 @@
     </div>
 
 
-
+    {{-- Log Out --}}
     <script>
         function logout() {
             fetch('{{ route('logout') }}', {
@@ -191,7 +187,6 @@
                 });
         }
     </script>
-
 
 
     <!-- jQuery -->
@@ -239,6 +234,9 @@
     <script src="dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="dist/js/pages/dashboard.js"></script>
+    {{-- Handsontable --}}
+    <script type="text/javascript" src="{{ asset('js/handsontable.full.min.js') }}"></script>
+
 </body>
 
 </html>

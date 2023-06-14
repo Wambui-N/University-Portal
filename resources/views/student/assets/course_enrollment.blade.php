@@ -20,7 +20,7 @@
 
                         @foreach ($courses_students as $enrollment)
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <div class="card">
+                                <div class="card h- 100">
                                     <div class="card-body">
                                         @foreach ($courses as $course)
                                             @if ($course->code == $enrollment->code)
