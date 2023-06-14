@@ -48,9 +48,10 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'student_id' => 'required',
-            'course_id' => 'required',
+        //validate the data
+        $request->validate([
+            'ADM' => 'required',
+            'code' => 'required',
         ]);
 
         //get data from the form
