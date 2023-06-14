@@ -19,7 +19,7 @@
         </a>
     </li>
     <li class="nav-item rounded my-2  bg-primary">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/dashboard/teacher/grade_management') }}" class="nav-link">
             <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
             <p>
                 Grade Management
