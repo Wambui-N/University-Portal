@@ -12,40 +12,86 @@
     </div>
     <div id="example"></div>
     <!-- Grade Management Table -->
-    <div class="table-responsive">
-        <table id="example">
-            <tr>    
-                <th>STUDENT</th>
-                <th>CAT 1</th>
-                <th>CAT 2</th>
-                <th>EXAM</th>
-                <th>AVERAGE</th>
-                <th>GRADE</th>
-            </tr>
-            @foreach ($marks as $mark)
-            <td> </td>
-                
+    @foreach ($units as $unit)
+        @foreach ($courses as $course)
+            @foreach ($teachers as $teacher)
+                @if ($course->teacher_id == $teacher->id && $unit->courseId == $course->courseId && $teacher->ADM == Auth::user()->ADM)
+                        <p class="fw-normal fs-4">{{ $unit->name }}</p>
+                        <div class="table-responsive">
+                            <table class="table table-borderless bg-light">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STUDENT</th>
+                                        <th scope="col">ADM</th>
+                                        <th scope="col">CAT 1</th>
+                                        <th scope="col">CAT 2</th>
+                                        <th scope="col">EXAM</th>
+                                        <th scope="col">AVERAGE</th>
+                                        <th scope="col">GRADE</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($enrollments as $enrollment)
+                                        @foreach ($users as $user)
+                                            @if ($enrollment->ADM == $user->ADM && $course->code == $enrollment->code)
+                                                <tr>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->ADM }}</td>
+                                                    @if ($enrollments->count() > 0)
+                                                        <td></td>
+                                                    @else
+                                                        <td>{{ $enrollment->cat1 }}</td>
+                                                    @endif
+                                                    @if ($enrollments->count() > 0)
+                                                        <td></td>
+                                                    @else
+                                                        <td>{{ $enrollment->cat2 }}</td>
+                                                    @endif
+                                                    @if ($enrollments->count() > 0)
+                                                        <td></td>
+                                                    @else
+                                                        <td>{{ $enrollment->exam }}</td>
+                                                    @endif
+                                                    @if ($enrollments->count() > 0)
+                                                        <td></td>
+                                                    @else
+                                                        <td>{{ $enrollment->average }}</td>
+                                                    @endif
+                                                    @if ($enrollments->count() > 0)
+                                                        <td></td>
+                                                    @else
+                                                        <td>{{ $enrollment->grade }}</td>
+                                                    @endif
+                                                    <td>
+                                                        <div class="d-flex justify-content-end">
+                                                            <!-- Edit button -->
+                                                            <button type="button" class="btn" data-bs-toggle="modal"
+                                                                data-bs-target="#editModal">
+                                                                <i class="fa-solid fa-user-pen fa-sm"
+                                                                    style="color: #0d6efd"></i>
+                                                            </button>
+
+                                                            <!-- Delete button -->
+                                                            <form class="m-0 p-0" method="POST" action="">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="btn" type="submit">
+                                                                    <i class="fa-solid fa-trash fa-sm"
+                                                                        style="color: #dc3545;"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                @endif
             @endforeach
-        </table>
-    </div>
-
-    <script>
-        const container = document.querySelector('#example');
-
-        const hot = new Handsontable(container, {
-            ajax(){
-                
-            }
-            data: [
-                ['', 'Tesla', 'Volvo', 'Toyota', 'Ford'],
-                ['2019', 10, 11, 12, 13],
-                ['2020', 20, 11, 14, 13],
-                ['2021', 30, 15, 12, 13]
-            ],
-            rowHeaders: true,
-            colHeaders: true,
-            height: 'auto',
-            licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
-        });
-    </script>
+        @endforeach
+    @endforeach
 @endsection

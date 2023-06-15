@@ -11,32 +11,35 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-    @if ($courses_students -> count() > 0)
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <p class="fs-5 fw-bold">Enrolled Courses</p>
+
+    <!--enrolled courses-->
+    <p class="fs-5 fw-bold">Enrolled Courses</p>
+    @if ($courses_students->count() > 0)
+        @foreach ($courses_students as $enrollment)
+            @if ($enrollment->ADM == auth()->user()->ADM)
+                <div class="container-fluid">
                     <div class="row">
-
-                        @foreach ($courses_students as $enrollment)
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <div class="card h- 100">
-                                    <div class="card-body">
-                                        @foreach ($courses as $course)
-                                            @if ($course->code == $enrollment->code)
-                                                <p class="card-title fw-bold">{{ $course->name }}</p>
-                                                <p class="card-text">{{ $course->description }}</p>
-                                            @endif
-                                        @endforeach
+                        <div class="col-sm-6">
+                            <div class="row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <div class="card h- 100">
+                                            <div class="card-body">
+                                                @foreach ($courses as $course)
+                                                    @if ($course->code == $enrollment->code)
+                                                        <p class="card-title fw-bold">{{ $course->name }}</p>
+                                                        <p class="card-text">{{ $course->description }}</p>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
                             </div>
-                        @endforeach
-                    </div>
 
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            @endif
+        @endforeach
     @endif
 
     <div class="container-fluid">

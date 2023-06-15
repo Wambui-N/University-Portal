@@ -17,7 +17,11 @@ return new class extends Migration
             $table->foreign('ADM')->references('ADM')->on('students')->onDelete('cascade');
             $table->string('code');
             $table->foreign('code')->references('code')->on('units')->onDelete('cascade');
-            $table->string('marks');
+            $table->string('cat1')->nullable();
+            $table->string('cat2')->nullable();
+            $table->string('exam')->nullable();
+            $table->string('marks')->nullable();
+            $table->string('grade')->nullable();
             $table->timestamps();
         });
 

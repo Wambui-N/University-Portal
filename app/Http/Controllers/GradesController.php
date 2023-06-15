@@ -6,6 +6,8 @@ use App\Models\mark;
 use App\Models\course;
 use App\Models\user;
 use App\Models\student;
+use App\Models\courses_students;
+use App\Models\teacher;
 use App\Models\unit;
 use Illuminate\Http\Request;
 
@@ -17,6 +19,8 @@ class GradesController extends Controller
     public function index()
     {
         $courses = Course::with('units')->get();
+        $enrollments = Courses_students::all();
+        $teachers = Teacher::all();
         $units = Unit::with('course')->get();
         $users = User::with('student')->get();
         $students = Student::all();
@@ -24,6 +28,8 @@ class GradesController extends Controller
 
         return view('teacher.assets.grade_management', [
             'courses' => $courses,
+            'enrollments' => $enrollments,
+            'teachers' => $teachers,
             'users' => $users,
             'students' => $students,
             'units' => $units,
