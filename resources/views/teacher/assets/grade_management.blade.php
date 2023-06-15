@@ -13,13 +13,29 @@
     <div id="example"></div>
     <!-- Grade Management Table -->
     <div class="table-responsive">
-        <table id="example"></table>
+        <table id="example">
+            <tr>    
+                <th>STUDENT</th>
+                <th>CAT 1</th>
+                <th>CAT 2</th>
+                <th>EXAM</th>
+                <th>AVERAGE</th>
+                <th>GRADE</th>
+            </tr>
+            @foreach ($marks as $mark)
+            <td> </td>
+                
+            @endforeach
+        </table>
     </div>
 
     <script>
         const container = document.querySelector('#example');
 
         const hot = new Handsontable(container, {
+            ajax(){
+                
+            }
             data: [
                 ['', 'Tesla', 'Volvo', 'Toyota', 'Ford'],
                 ['2019', 10, 11, 12, 13],
