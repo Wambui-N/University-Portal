@@ -12,11 +12,13 @@
     </div>
     <div id="example"></div>
     <!-- Grade Management Table -->
-    @foreach ($units as $unit)
-        @foreach ($courses as $course)
-            @foreach ($teachers as $teacher)
-                @if ($course->teacher_id == $teacher->id && $unit->courseId == $course->courseId && $teacher->ADM == Auth::user()->ADM)
-                        <p class="fw-normal fs-4">{{ $unit->name }}</p>
+    @foreach ($courses as $course)
+        @foreach ($teachers as $teacher)
+            @if ($course->teacher_id == $teacher->id && $teacher->ADM == Auth::user()->ADM)
+                <p class="fw-light fs-6 text-uppercase">{{ $course->name }}</p>
+                @foreach ($course->units as $unit)
+                    @if ($unit->courseId == $course->courseId && $teacher->ADM == Auth::user()->ADM)
+                        <p class="fw-normal fs-6">{{ $unit->name }}</p>
                         <div class="table-responsive">
                             <table class="table table-borderless bg-light">
                                 <thead>
@@ -38,60 +40,86 @@
                                                 <tr>
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->ADM }}</td>
-                                                    @if ($enrollments->count() > 0)
-                                                        <td></td>
-                                                    @else
-                                                        <td>{{ $enrollment->cat1 }}</td>
-                                                    @endif
-                                                    @if ($enrollments->count() > 0)
-                                                        <td></td>
-                                                    @else
-                                                        <td>{{ $enrollment->cat2 }}</td>
-                                                    @endif
-                                                    @if ($enrollments->count() > 0)
-                                                        <td></td>
-                                                    @else
-                                                        <td>{{ $enrollment->exam }}</td>
-                                                    @endif
-                                                    @if ($enrollments->count() > 0)
-                                                        <td></td>
-                                                    @else
-                                                        <td>{{ $enrollment->average }}</td>
-                                                    @endif
-                                                    @if ($enrollments->count() > 0)
-                                                        <td></td>
-                                                    @else
-                                                        <td>{{ $enrollment->grade }}</td>
-                                                    @endif
+                                                    @php
+                                                        $foundMark = $marks->where('code', $enrollment->code)->first();
+                                                    @endphp
+                                                    <td>{{ $foundMark ? $foundMark->cat1 : '' }}</td>
+                                                    <td>{{ $foundMark ? $foundMark->cat2 : '' }}</td>
+                                                    <td>{{ $foundMark ? $foundMark->exam : '' }}</td>
+                                                    <td>{{ $foundMark ? $foundMark->average : '' }}</td>
+                                                    <td>{{ $foundMark ? $foundMark->grade : '' }}</td>
                                                     <td>
+                                                        @foreach ($marks as $mark)
                                                         <div class="d-flex justify-content-end">
                                                             <!-- Edit button -->
                                                             <button type="button" class="btn" data-bs-toggle="modal"
-                                                                data-bs-target="#editModal">
+                                                                data-bs-target="#editModal{{ $mark->id }}">
                                                                 <i class="fa-solid fa-user-pen fa-sm"
                                                                     style="color: #0d6efd"></i>
                                                             </button>
-
-                                                            <!-- Delete button -->
-                                                            <form class="m-0 p-0" method="POST" action="">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="btn" type="submit">
-                                                                    <i class="fa-solid fa-trash fa-sm"
-                                                                        style="color: #dc3545;"></i>
-                                                                </button>
-                                                            </form>
                                                         </div>
+                                                        
                                                     </td>
                                                 </tr>
+
+                                                <!-- Edit mark Modal -->
+                                                <div class="modal fade" id="editModal{{ $mark->id }}"
+                                                    data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                    aria-labelledby="editModalLabel{{ $mark->id }}" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5"
+                                                                    id="editModalLabel{{ $mark->id }}">Edit mark</h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('grades.update', $mark->id) }}"
+                                                                    method="POST" class="row g-3 needs-validation"
+                                                                    novalidate>
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div class="col-md-12">
+                                                                        <label for="validationCustom01"
+                                                                            class="form-label">CAT 1</label>
+                                                                        <input name="cat1" type="text"
+                                                                            value="{{ old('name', $mark->cat1 ?? '') }}"
+                                                                            class="form-control" id="validationCustom01"
+                                                                            required>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <label for="validationCustom01"
+                                                                            class="form-label">CAT 2</label>
+                                                                        <input name="cat2" type="text"
+                                                                            value="{{ old('name', $mark->cat2 ?? '') }}"
+                                                                            class="form-control" id="validationCustom01"
+                                                                            required>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <label for="validationCustom01"
+                                                                            class="form-label">EXAM</label>
+                                                                        <input name="exam" type="text"
+                                                                            value="{{ old('name', $mark->exam ?? '') }}"
+                                                                            class="form-control" id="validationCustom01"
+                                                                            required>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+
                                             @endif
                                         @endforeach
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                @endif
-            @endforeach
+                    @endif
+                @endforeach
+            @endif
         @endforeach
     @endforeach
 @endsection
