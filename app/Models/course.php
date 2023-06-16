@@ -15,15 +15,19 @@ class course extends Model
         'description',
         // other fillable fields...
     ];
-    public function teacher(){
-        return $this->belongsTo(Teacher::class);
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id', 'id');
     }
 
-    public function units(){
+
+    public function units()
+    {
         return $this->hasMany(Unit::class, 'courseId', 'courseId');
     }
 
-    public function student(){
+    public function student()
+    {
         return $this->belongsToMany(Student::class, 'courses_students', 'code', 'ADM')->as('enrollment')->withTimestamps();
     }
 }

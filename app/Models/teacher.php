@@ -18,11 +18,12 @@ class teacher extends Model
     ];
 
     public function user()
-{
-    return $this->belongsTo(User::class, 'ADM', 'ADM');
-}
+    {
+        return $this->belongsTo(User::class, 'ADM', 'ADM');
+    }
 
-    public function course(){
-        return $this->hasMany(Course::class);
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id', 'id');
     }
 }
