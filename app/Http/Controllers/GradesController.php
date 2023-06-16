@@ -16,8 +16,10 @@ class GradesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $courseId = $request->query('courseId');
+        $course = Course::with('units')->findOrFail($courseId);
         $courses = Course::with('units')->get();
         $enrollments = Courses_students::all();
         $teachers = Teacher::all();
@@ -27,6 +29,7 @@ class GradesController extends Controller
         $marks = Mark::all();
 
         return view('teacher.assets.grade_management', [
+            'course' => $course,
             'courses' => $courses,
             'enrollments' => $enrollments,
             'teachers' => $teachers,
