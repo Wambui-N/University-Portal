@@ -20,7 +20,7 @@ class EnrollmentController extends Controller
     public function index()
     {
         $courses = Course::with('units')->get();
-        $teachers = Teacher::with('course')->get();
+        $teachers = Teacher::with('courses')->get();
         $users = User::with('teacher')->get();
         $students = Student::all();
         $courses_students = courses_students::all();
