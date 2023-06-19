@@ -278,6 +278,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const courseId = {{ $courseId }};
+        const stu = {{ $students }};
 
         $(document).ready(function() {
             // Add a change event listener to the select-unit select element

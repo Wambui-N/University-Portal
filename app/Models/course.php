@@ -30,4 +30,8 @@ class course extends Model
     {
         return $this->belongsToMany(Student::class, 'courses_students', 'code', 'ADM')->as('enrollment')->withTimestamps();
     }
+    public function courses_students()
+    {
+        return $this->hasMany(Courses_students::class);
+    }
 }

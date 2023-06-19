@@ -45,21 +45,21 @@ class GradesController extends Controller
      * Show the form for creating a new resource.
      */
 
-    public function fetch(Request $request, $courseId)
+    public function fetch(Request $request)
     {
         $courseId = $request->query('courseId');
-        $enrollments = courses_students::where('courseId', $courseId)->with('student', 'course')->get();
-        $students = [];
+        $enrollments = courses_students::whereHas('course', function ($query) use ($courseId) {
+            $query->where('code', $query->getQuery()->getModel()->getTable() . '.code')
+                ->where('courseId', $courseId);
+        })
+            ->with('student:ADM')
+            ->get();
 
-        foreach ($enrollments as $enrollment) {
-            foreach ($enrollment->courses as $course) {
-                if ($enrollment->code == $course->code && $course->courseId == $courseId) {
-                    $students[] = $enrollment->ADM;
-                }
-            }
-        }
+        $students = $enrollments->pluck('student.ADM');
+
         return response()->json($students);
     }
+
 
     public function create()
     {
@@ -71,23 +71,23 @@ class GradesController extends Controller
      */
     public function store(Request $request)
     {
-            
-            // Validate the form input
-            $validatedData = $request->validate([
-                'cat1' => 'required',
-                'cat2' => 'required',
-                'exam' => 'required',
-            ]);
-    
-            // Create a new mark record
-            $mark = new Mark();
-            $mark->cat1 = $request->input('cat1');
-            $mark->cat2 = $request->input('cat2');
-            $mark->exam = $request->input('exam');
-            $mark->save();
-    
-            // Redirect to a relevant page or return a response as needed
-            return redirect()->route('grades.index');
+
+        // Validate the form input
+        $validatedData = $request->validate([
+            'cat1' => 'required',
+            'cat2' => 'required',
+            'exam' => 'required',
+        ]);
+
+        // Create a new mark record
+        $mark = new Mark();
+        $mark->cat1 = $request->input('cat1');
+        $mark->cat2 = $request->input('cat2');
+        $mark->exam = $request->input('exam');
+        $mark->save();
+
+        // Redirect to a relevant page or return a response as needed
+        return redirect()->route('grades.index');
     }
 
     /**
@@ -109,7 +109,7 @@ class GradesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         // Find the mark record
         $mark = Mark::find($id);

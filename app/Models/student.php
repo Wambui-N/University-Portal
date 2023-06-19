@@ -32,4 +32,10 @@ class student extends Model
     {
         return $this->hasMany(Mark::class);
     }
+
+    public function courses_students()
+    {
+        return $this->hasMany(Courses_students::class);
+    }
 }
+
