@@ -43,6 +43,25 @@ class GradesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
+    public function fetch(Request $request, $courseId)
+    {
+        $courses = Course::where('courseId', $courseId)->get();
+        $enrollments = courses_students::where('courseId', $courseId)->with('student', 'course')->get();
+        $student = [];
+
+        foreach ($enrollments as $enrollment) {
+            foreach ($courses as $course) {
+                if ($enrollment->course->code == $course->code && $course->courseId == $courseId) {
+                    $students[] = $enrollment->student->ADM;
+                }
+            }
+        }
+        dd($students);
+        return response()->json($students);
+    
+    }
+
     public function create()
     {
         //

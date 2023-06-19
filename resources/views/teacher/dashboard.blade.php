@@ -30,7 +30,7 @@
                 @if ($course->teacher_id == $teacher->id && $teacher->ADM == Auth::user()->ADM)
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('grades.index', ['courseId' => $course->id]) }}" class="nav-link">
+                            <a href="{{ route('grades.index', ['courseId' => $course->courseId]) }}" class="nav-link">
                                 <i class="far fa-circle nav-icon" style="color: #fff;"></i>
                                 <p class="text-light">{{ $course->name }}</p>
                             </a>

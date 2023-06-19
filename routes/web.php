@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DisplayUnitController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\FetchStudentsController;
 use App\Http\Controllers\GradesController;
 use Illuminate\Support\Facades\Route;
 
@@ -95,3 +96,5 @@ Route::resource('/dashboard/teacher/grade_management', GradesController::class)-
     'update' => 'grades.update',
     'destroy' => 'grades.destroy',
 ]);
+
+Route::get('/dashboard/teacher/grade_management{courseId}', [GradesController::class, 'fetch'])->name('grades.fetch');

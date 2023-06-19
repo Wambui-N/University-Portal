@@ -12,4 +12,8 @@ class courses_students extends Model
     public function course(){
         return $this->belongsTo(course::class,'code');
     }
+
+    public function student(){
+        return $this->belongsTo(student::class,'ADM');
+    }
 }

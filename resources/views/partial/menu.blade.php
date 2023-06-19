@@ -263,12 +263,6 @@
     <!-- Page specific script -->
     <script>
         $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -280,6 +274,34 @@
             });
         });
     </script>
-</body>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Add a change event listener to the select-unit select element
+            $('#select-unit').change(function() {
+                const selectedUnit = $(this).val();
+
+                // Send an AJAX request
+                $.ajax({
+                    url: "{{ route('grades.fetch', ['courseId' => ':courseId']) }}/" + selectedUnit,
+                    type: 'GET',
+                    success: function(student) {
+                        // Remove existing options from the select-student select element
+                        $('#select-student option:not(:first)').remove();
+
+                        // Create new options based on the data and append them to the select-student select element
+                        $.each(student, function(index, value) {
+                            $('#select-student').append('<option value="' + value +
+                                '">' + value + '</option>');
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching options: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
 </html>

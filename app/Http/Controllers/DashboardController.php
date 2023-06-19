@@ -14,13 +14,15 @@ class DashboardController extends Controller
         if (Auth::id()) {
             if (Auth::user()->usertype == '0') {
                 return view('student.dashboard');
-            } elseif (Auth::user()->usertype == '1') {
+            } 
+            elseif (Auth::user()->usertype == '1') {
                 $teachers = Teacher::with('courses')->get();
 
                 return view('teacher.assets.overview', [
                     'teachers' => $teachers,
                 ]);
-            } elseif (Auth::user()->usertype == '2') {
+            } 
+            elseif (Auth::user()->usertype == '2') {
                 return view('admin.assets.overview');
             }
         }
