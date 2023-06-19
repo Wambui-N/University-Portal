@@ -277,6 +277,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        const courseId = {{ $courseId }};
+
         $(document).ready(function() {
             // Add a change event listener to the select-unit select element
             $('#select-unit').change(function() {
@@ -284,7 +286,7 @@
 
                 // Send an AJAX request
                 $.ajax({
-                    url: "{{ route('grades.fetch', ['courseId' => '$courseId']) }}/" + selectedUnit,
+                    url: "{{ route('grades.fetch', ['courseId' => $courseId]) }}/" + selectedUnit,
                     type: 'GET',
                     success: function(data) {
                         // Remove existing options from the select-student select element
@@ -304,4 +306,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -50,12 +50,8 @@
                             <div class="col-md-6">
                                 <select class="form-select" aria-label="Default select example" id="select-unit">
                                     <option selected>Select Unit</option>
-                                    @foreach ($teachers as $teacher)
-                                            @foreach ($course->units as $unit)
-                                                @if ($unit->courseId == $course->courseId && $course->teacher_id == $teacher->id && $teacher->ADM == Auth::user()->ADM)
-                                                    <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                                                @endif
-                                            @endforeach
+                                    @foreach ($course->units as $unit)
+                                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -81,6 +77,7 @@
                             </div>
                         </div>
                     </form>
+                    
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
