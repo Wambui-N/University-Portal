@@ -284,14 +284,14 @@
 
                 // Send an AJAX request
                 $.ajax({
-                    url: "{{ route('grades.fetch', ['courseId' => ':courseId']) }}/" + selectedUnit,
+                    url: "{{ route('grades.fetch', ['courseId' => '$courseId']) }}/" + selectedUnit,
                     type: 'GET',
-                    success: function(student) {
+                    success: function(data) {
                         // Remove existing options from the select-student select element
                         $('#select-student option:not(:first)').remove();
 
                         // Create new options based on the data and append them to the select-student select element
-                        $.each(student, function(index, value) {
+                        $.each(data, function(index, value) {
                             $('#select-student').append('<option value="' + value +
                                 '">' + value + '</option>');
                         });

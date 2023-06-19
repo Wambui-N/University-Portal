@@ -37,6 +37,7 @@ class GradesController extends Controller
             'students' => $students,
             'units' => $units,
             'marks' => $marks,
+            'courseId' => $courseId,
         ]);
     }
 
@@ -48,7 +49,7 @@ class GradesController extends Controller
     {
         $courses = Course::where('courseId', $courseId)->get();
         $enrollments = courses_students::where('courseId', $courseId)->with('student', 'course')->get();
-        $student = [];
+        $students = [];
 
         foreach ($enrollments as $enrollment) {
             foreach ($courses as $course) {
@@ -57,7 +58,6 @@ class GradesController extends Controller
                 }
             }
         }
-        dd($students);
         return response()->json($students);
     
     }
