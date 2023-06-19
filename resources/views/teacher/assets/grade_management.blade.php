@@ -12,18 +12,6 @@
     </section>
 
     <!-- Main content -->
-
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="userTypeDropdown" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Filter by Units
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="userTypeDropdown">
-            @foreach ($course->units as $unit)
-                <li><a class="dropdown-item" href="{{ route('grades.index', $unit->name) }}">{{ $unit->name }}</a></li>
-            @endforeach
-        </ul>
-    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
