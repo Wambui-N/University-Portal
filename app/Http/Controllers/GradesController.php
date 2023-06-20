@@ -45,9 +45,10 @@ class GradesController extends Controller
      * Show the form for creating a new resource.
      */
 
-    public function fetch(Request $request)
+    public function fetch(Request $request, $courseId, $id)
     {
-        $courseId = $request->query('courseId');
+        $courseId = Course::find($courseId);
+
         $courses = Course::all();
         $enrollments = Courses_Students::all();
 

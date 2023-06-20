@@ -258,21 +258,8 @@
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
     <!-- Page specific script -->
-    <script>
-        $(function() {
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-    </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const courseId = {{ $courseId }};
     
@@ -280,7 +267,6 @@
             // Add a change event listener to the select-unit select element
             $('#select-unit').change(function() {
                 const selectedUnit = $(this).val();
-    
                 // Send an AJAX request
                 $.ajax({
                     url: "{{ route('grades.fetch', ['courseId' => $courseId]) }}/" + selectedUnit,
@@ -303,6 +289,6 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 </body>
 </html>
