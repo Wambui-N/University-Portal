@@ -48,17 +48,28 @@ class GradesController extends Controller
     public function fetch(Request $request)
     {
         $courseId = $request->query('courseId');
-        $enrollments = courses_students::whereHas('course', function ($query) use ($courseId) {
-            $query->where('code', $query->getQuery()->getModel()->getTable() . '.code')
-                ->where('courseId', $courseId);
-        })
-            ->with('student:ADM')
-            ->get();
+        $courses = Course::all();
+        $enrollments = Courses_Students::all();
 
-        $students = $enrollments->pluck('student.ADM');
+        $matchingADM = [];
 
-        return response()->json($students);
+        foreach ($enrollments as $enrollment) {
+            foreach ($courses as $course) {
+                if ($enrollment->code == $course->code && $enrollment->courseId == $courseId) {
+                    $matchingADM[] = $enrollment->ADM;
+                }
+            }
+        }
+        return response()->json($matchingADM);
+        // $enrollments = courses_students::whereHas('course', function ($query) use ($courseId) {
+        //     $query->whereColumn('courses_students.code', 'courses.code')
+        //         ->where('courseId', $courseId);
+        // })
+        //     ->pluck('ADM');
+
+        //return response()->json($enrollments);
     }
+
 
 
     public function create()

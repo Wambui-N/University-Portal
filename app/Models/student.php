@@ -23,19 +23,14 @@ class student extends Model
         return $this->belongsTo(User::class, 'ADM', 'ADM');
     }
 
-    public function course()
+    public function courses()
     {
-        return $this->belongsToMany(Course::class, 'courses_students', 'ADM', 'code')->as('enrollment')->withTimestamps();
+        return $this->belongsToMany(Course::class, 'courses_students', 'ADM', 'code');
     }
+
 
     public function mark()
     {
         return $this->hasMany(Mark::class);
     }
-
-    public function courses_students()
-    {
-        return $this->hasMany(Courses_students::class);
-    }
 }
-

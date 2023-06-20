@@ -26,10 +26,11 @@ class course extends Model
         return $this->hasMany(Unit::class, 'courseId', 'courseId');
     }
 
-    public function student()
-    {
-        return $this->belongsToMany(Student::class, 'courses_students', 'code', 'ADM')->as('enrollment')->withTimestamps();
-    }
+    public function students()
+{
+    return $this->belongsToMany(Student::class, 'courses_students', 'code', 'ADM');
+}
+
     public function courses_students()
     {
         return $this->hasMany(Courses_students::class);

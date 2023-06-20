@@ -236,9 +236,6 @@
     <script src="dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="dist/js/pages/dashboard.js"></script>
-    {{-- Handsontable --}}
-    <script type="text/javascript" src="{{ asset('js/handsontable.full.min.js') }}"></script>
-
     <!-- jQuery -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -278,25 +275,26 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const courseId = {{ $courseId }};
-        const stu = {{ $students }};
-
+    
         $(document).ready(function() {
             // Add a change event listener to the select-unit select element
             $('#select-unit').change(function() {
                 const selectedUnit = $(this).val();
-
+    
                 // Send an AJAX request
                 $.ajax({
                     url: "{{ route('grades.fetch', ['courseId' => $courseId]) }}/" + selectedUnit,
                     type: 'GET',
                     success: function(data) {
+                        console.log(data);
+
                         // Remove existing options from the select-student select element
                         $('#select-student option:not(:first)').remove();
-
+    
                         // Create new options based on the data and append them to the select-student select element
                         $.each(data, function(index, value) {
-                            $('#select-student').append('<option value="' + value +
-                                '">' + value + '</option>');
+                            $('#select-student').append('<option value="' + value.ADM +
+                                '">' + value.ADM + '</option>');
                         });
                     },
                     error: function(xhr, status, error) {
@@ -307,5 +305,4 @@
         });
     </script>
 </body>
-
 </html>
