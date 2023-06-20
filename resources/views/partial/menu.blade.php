@@ -259,28 +259,23 @@
     <script src="../../dist/js/demo.js"></script>
     <!-- Page specific script -->
 
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        const courseId = {{ $courseId }};
-    
         $(document).ready(function() {
             // Add a change event listener to the select-unit select element
             $('#select-unit').change(function() {
-                const selectedUnit = $(this).val();
                 // Send an AJAX request
                 $.ajax({
-                    url: "{{ route('grades.fetch', ['courseId' => $courseId]) }}/" + selectedUnit,
+                    url: "{{ route('grades.fetch', ['courseId' => $courseId]) }}",
                     type: 'GET',
                     success: function(data) {
-                        console.log(data);
-
+                        console.log(data.length);
                         // Remove existing options from the select-student select element
                         $('#select-student option:not(:first)').remove();
     
                         // Create new options based on the data and append them to the select-student select element
                         $.each(data, function(index, value) {
-                            $('#select-student').append('<option value="' + value.ADM +
-                                '">' + value.ADM + '</option>');
+                            $('#select-student').append('<option value="' + value + '">' + value + '</option>');
                         });
                     },
                     error: function(xhr, status, error) {
@@ -289,6 +284,7 @@
                 });
             });
         });
-    </script> --}}
+    </script>
 </body>
+
 </html>

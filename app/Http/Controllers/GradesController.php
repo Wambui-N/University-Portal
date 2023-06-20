@@ -10,6 +10,8 @@ use App\Models\courses_students;
 use App\Models\teacher;
 use App\Models\unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class GradesController extends Controller
 {
@@ -45,33 +47,17 @@ class GradesController extends Controller
      * Show the form for creating a new resource.
      */
 
-    public function fetch(Request $request, $courseId, $id)
+
+    public function fetch($courseId)
     {
-        $courseId = Course::find($courseId);
+        $matchingADM = DB::table('courses_students')
+        ->join('courses', 'courses_students.code', '=', 'courses.code')
+        ->where('courses.courseId','=', $courseId)
+        ->pluck('ADM')
+        ->toArray();
 
-        $courses = Course::all();
-        $enrollments = Courses_Students::all();
-
-        $matchingADM = [];
-
-        foreach ($enrollments as $enrollment) {
-            foreach ($courses as $course) {
-                if ($enrollment->code == $course->code && $enrollment->courseId == $courseId) {
-                    $matchingADM[] = $enrollment->ADM;
-                }
-            }
-        }
         return response()->json($matchingADM);
-        // $enrollments = courses_students::whereHas('course', function ($query) use ($courseId) {
-        //     $query->whereColumn('courses_students.code', 'courses.code')
-        //         ->where('courseId', $courseId);
-        // })
-        //     ->pluck('ADM');
-
-        //return response()->json($enrollments);
     }
-
-
 
     public function create()
     {

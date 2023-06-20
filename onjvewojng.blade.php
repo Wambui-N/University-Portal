@@ -6,7 +6,7 @@
             <th scope="col">CAT 1</th>
             <th scope="col">CAT 2</th>
             <th scope="col">EXAM</th>
-            <th scope="col">AVERAGE</th>
+            <th scope="col">TOTAL</th>
             <th scope="col">GRADE</th>
             <th scope="col"></th>
         </tr>
@@ -83,18 +83,6 @@
         @endforeach
         @endforeach
     </tbody>
-    <tfoot>
-        <tr>
-            <th scope="col">STUDENT</th>
-            <th scope="col">ADM</th>
-            <th scope="col">CAT 1</th>
-            <th scope="col">CAT 2</th>
-            <th scope="col">EXAM</th>
-            <th scope="col">AVERAGE</th>
-            <th scope="col">GRADE</th>
-            <th scope="col"></th>
-        </tr>
-    </tfoot>
 </table>
 
 
@@ -124,3 +112,43 @@
         @endforeach
     </select>
 </div>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        // Add a change event listener to the make select element
+        $('#vehicle-make').change(function() {
+            // Get the selected make value
+            const selectedMake = $(this).val();
+
+
+            // Send an AJAX request to fetch the makeId options for the selected make
+            $.ajax({
+                url: "{{ route('get_models', '') }}/" + selectedMake,
+                type: 'GET',
+                success: function(data) {
+                    // Remove existing options from the makeId select element
+                    // $('#model').empty();
+                    $('#vehicle-model option:not(:first)').remove();
+
+
+                    // Create a new option for each makeId and append it to the makeId select element
+                    $.each(data, function(index, value) {
+                        $('#vehicle-model').append('<option value="' + value.model + '">' + value.model + '</option>');
+                    });
+
+                    const selectedMakeName = $('#vehicle-make option:selected').text();
+
+                    // Set the value of the organization input field to the selected make name
+                    $('#make_name').val(selectedMakeName);
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching makeId options: ' + error);
+                }
+            });
+        });
+    });
+</script>
