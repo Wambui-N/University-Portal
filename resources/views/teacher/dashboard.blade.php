@@ -19,7 +19,7 @@
         </a>
     </li>
     <li class="nav-item menu-open rounded my-2  bg-primary">
-        <a href="3" class="nav-link">
+        <a href="#" class="nav-link">
             <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
             <p>
                 Grade Management

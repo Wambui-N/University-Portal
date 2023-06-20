@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\unit;
 use App\Models\Course;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -17,9 +18,14 @@ class UnitController extends Controller
     public function index(Request $request)
     {
         $courseId = $request->query('courseId');
+        $teachers = Teacher::with('courses')->get();
         $unitType = $request->query('unit_type');
         $course = Course::with('units')->findOrFail($courseId);
-        return view('teacher.assets.units', compact('course'));;
+        return view('teacher.assets.units', [
+            'course' => $course,
+            'teachers' => $teachers,
+            'unitType' => $unitType,
+        ]);
     }
 
     /**

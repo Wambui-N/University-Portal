@@ -17,7 +17,7 @@ class DashboardController extends Controller
             } 
             elseif (Auth::user()->usertype == '1') {
                 $teachers = Teacher::with('courses')->get();
-
+    
                 return view('teacher.assets.overview', [
                     'teachers' => $teachers,
                 ]);
