@@ -69,11 +69,13 @@ class GradesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $unitId)
+    public function store(Request $request)
     {
 
         // Validate the form input
         $validatedData = $request->validate([
+            'ADM' => 'required',
+            'code' => 'required',
             'cat1' => 'required',
             'cat2' => 'required',
             'exam' => 'required',
@@ -81,16 +83,8 @@ class GradesController extends Controller
 
         // Create a new mark record
         $mark = new Mark();
-
-        //get student ADM from the unitId value
-        $student = Student::where('ADM', $request->input('ADM'))->first();
-        $mark->ADM = $student->ADM;
-        dd($mark->ADM);
-
-        //get unit code
-        $unit = Unit::where('code', $unitId)->first();
-        $mark->code = $unit->code;
-
+        $mark->ADM = $request->input('ADM');
+        $mark->code = $request->input('code');
         $mark->cat1 = $request->input('cat1');
         $mark->cat2 = $request->input('cat2');
         $mark->exam = $request->input('exam');
@@ -116,7 +110,7 @@ class GradesController extends Controller
         $mark->save();
 
         // Redirect to a relevant page or return a response as needed
-        return redirect()->route('grades.index');
+        return redirect()->back();
     }
 
     /**
@@ -145,6 +139,8 @@ class GradesController extends Controller
 
         // Validate the form input
         $validatedData = $request->validate([
+            'ADM' => 'required',
+            'code' => 'required',
             'cat1' => 'required',
             'cat2' => 'required',
             'exam' => 'required',
@@ -154,6 +150,24 @@ class GradesController extends Controller
         $mark->cat1 = $request->input('cat1');
         $mark->cat2 = $request->input('cat2');
         $mark->exam = $request->input('exam');
+        //calculate total
+        $cat = ($mark->cat1 + $mark->cat2) / 2;
+        $total = $cat + $mark->exam;
+        $mark->marks = $total;
+
+        //calculate grade
+        if ($total >= 70) {
+            $mark->grade = 'A';
+        } elseif ($total >= 60) {
+            $mark->grade = 'B';
+        } elseif ($total >= 50) {
+            $mark->grade = 'C';
+        } elseif ($total >= 40) {
+            $mark->grade = 'D';
+        } else {
+            $mark->grade = 'E';
+        }
+        //save
         $mark->save();
 
         // Redirect to a relevant page or return a response as needed

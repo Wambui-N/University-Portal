@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>AdminLTE 3 | Dashboard</title>
 
     <!--Bootstrap-->
@@ -264,16 +266,21 @@
                 // Send an AJAX request
                 var selectedUnit = $(this).val();
                 $.ajax({
-                    url: "{{ route('grades.fetch', ['unitId' => ':unitId']) }}".replace(':unitId', selectedUnit),
+                    url: "{{ route('grades.fetch', ['unitId' => ':unitId']) }}".replace(':unitId',
+                        selectedUnit),
                     type: 'GET',
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                    },
                     success: function(data) {
                         console.log(data.length);
                         // Remove existing options from the select-student select element
                         $('#select-student option:not(:first)').remove();
-    
+
                         // Create new options based on the data and append them to the select-student select element
                         $.each(data, function(index, value) {
-                            $('#select-student').append('<option value="' + value.ADM + '">' + value.name + '</option>');
+                            $('#select-student').append('<option name="ADM" value="' + value.ADM +
+                                '">' + value.name + '</option>');
                         });
                     },
                     error: function(xhr, status, error) {

@@ -120,10 +120,10 @@
                 <div class="modal-body">
                     <form action="{{ route('grades.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <select class="form-select" aria-label="Default select example" id="select-unit">
+                                <select class="form-select" aria-label="Default select example" id="select-unit"
+                                    name="code">
                                     <option selected>Select Unit</option>
                                     @foreach ($course->units as $unit)
                                         <option value="{{ $unit->code }}">{{ $unit->name }}</option>
@@ -131,20 +131,24 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <select class="form-select mb-2" aria-label="Default select example" id="select-student">
+                                <select class="form-select mb-2" aria-label="Default select example" id="select-student"
+                                    name="ADM">
                                     <option selected>Select Student</option>
                                 </select>
                             </div>
                             <div class="col-md-4 form-floating">
-                                <input type="" class="form-control" id="floatingInput1" placeholder=" ">
+                                <input type="text" name="cat1" class="form-control" id="floatingInput1"
+                                    placeholder=" ">
                                 <label for="floatingInput1">CAT 1</label>
                             </div>
                             <div class="col-md-4 form-floating">
-                                <input type="" class="form-control" id="floatingInput2" placeholder=" ">
+                                <input type="text" name="cat2" class="form-control" id="floatingInput2"
+                                    placeholder=" ">
                                 <label for="floatingInput2">CAT 2</label>
                             </div>
                             <div class="col-md-4 form-floating">
-                                <input type="" class="form-control" id="floatingInput3" placeholder=" ">
+                                <input type="text" name="exam" class="form-control" id="floatingInput3"
+                                    placeholder=" ">
                                 <label for="floatingInput3">EXAM</label>
                             </div>
                             <div class="modal-footer col-12 justify-content-between">
@@ -153,6 +157,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
 
 
