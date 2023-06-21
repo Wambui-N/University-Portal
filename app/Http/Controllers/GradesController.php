@@ -49,18 +49,16 @@ class GradesController extends Controller
      */
 
 
+
     public function fetch($unitId)
     {
-        $students_units =students_units::all();
-        $units = Unit::all();
-        
-        $matchingADM = DB::table('units')
-        ->join('courses', '', '=', 'courses.id')
-        ->where('courses.courseId','=', $unitId)
-        ->pluck('ADM')
-        ->toArray();
+        $students = students_units::where('code', $unitId)->get();
+        foreach ($students as $student) {
+            $stdnm = user::where('ADM', $student->ADM)->pluck('name')->first();
+            $student->name = $stdnm;
+        }
 
-        return response()->json($matchingADM);
+        return response()->json($students);
     }
 
     public function create()
@@ -71,7 +69,7 @@ class GradesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $unitId)
     {
 
         // Validate the form input
@@ -83,9 +81,38 @@ class GradesController extends Controller
 
         // Create a new mark record
         $mark = new Mark();
+
+        //get student ADM from the unitId value
+        $student = Student::where('ADM', $request->input('ADM'))->first();
+        $mark->ADM = $student->ADM;
+        dd($mark->ADM);
+
+        //get unit code
+        $unit = Unit::where('code', $unitId)->first();
+        $mark->code = $unit->code;
+
         $mark->cat1 = $request->input('cat1');
         $mark->cat2 = $request->input('cat2');
         $mark->exam = $request->input('exam');
+
+        //calculate total
+        $cat = ($mark->cat1 + $mark->cat2) / 2;
+        $total = $cat + $mark->exam;
+        $mark->marks = $total;
+
+        //calculate grade
+        if ($total >= 70) {
+            $mark->grade = 'A';
+        } elseif ($total >= 60) {
+            $mark->grade = 'B';
+        } elseif ($total >= 50) {
+            $mark->grade = 'C';
+        } elseif ($total >= 40) {
+            $mark->grade = 'D';
+        } else {
+            $mark->grade = 'E';
+        }
+        //save
         $mark->save();
 
         // Redirect to a relevant page or return a response as needed

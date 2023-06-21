@@ -97,4 +97,6 @@ Route::resource('/dashboard/teacher/grade_management', GradesController::class)-
     'destroy' => 'grades.destroy',
 ]);
 
-Route::get('/dashboard/teacher/grade_management/{unitId}', [GradesController::class, 'fetch'])->name('grades.fetch');
+Route::get('/dashboard/teacher/grade_management/unit/{unitId}', [GradesController::class, 'fetch'])->name('grades.fetch');
+
+//Route::get('/unit-list/{unitId}', [GradesController::class, 'fetch'])->name('grades.fetch');

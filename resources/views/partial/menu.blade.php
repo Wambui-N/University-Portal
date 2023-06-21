@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AdminLTE 3 | Dashboard</title>
 
-    <link rel="stylesheet" href="{{ asset('resources/css/custom.css') }}">
     <!--Bootstrap-->
     <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css') }}" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -36,8 +35,6 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
-    {{-- Handsontable --}}
-    <link rel="stylesheet" href="{{ asset('css/handsontable.full.min.css') }}" />
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
@@ -265,9 +262,9 @@
             // Add a change event listener to the select-unit select element
             $('#select-unit').change(function() {
                 // Send an AJAX request
-                $selecteunit=$(this).val();
+                var selectedUnit = $(this).val();
                 $.ajax({
-                    url: "{{ route('grades.fetch'}}/"+$selectedunit,
+                    url: "{{ route('grades.fetch', ['unitId' => ':unitId']) }}".replace(':unitId', selectedUnit),
                     type: 'GET',
                     success: function(data) {
                         console.log(data.length);
@@ -276,7 +273,7 @@
     
                         // Create new options based on the data and append them to the select-student select element
                         $.each(data, function(index, value) {
-                            $('#select-student').append('<option value="' + value + '">' + value + '</option>');
+                            $('#select-student').append('<option value="' + value.ADM + '">' + value.name + '</option>');
                         });
                     },
                     error: function(xhr, status, error) {

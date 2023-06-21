@@ -118,13 +118,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="{{ route('grades.store') }}" method="POST">
+                        @csrf
+                        @method('PUT')
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <select class="form-select" aria-label="Default select example" id="select-unit">
                                     <option selected>Select Unit</option>
                                     @foreach ($course->units as $unit)
-                                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                        <option value="{{ $unit->code }}">{{ $unit->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -145,17 +147,15 @@
                                 <input type="" class="form-control" id="floatingInput3" placeholder=" ">
                                 <label for="floatingInput3">EXAM</label>
                             </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="modal-footer col-12 justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add Mark</button>
                             </div>
                         </div>
                     </form>
+                </div>
 
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+
             </div>
             <!-- /.modal-content -->
         </div>
