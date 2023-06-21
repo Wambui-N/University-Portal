@@ -5,7 +5,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <p class="text-uppercase fs-5 fw-semibold text-secondary">{{ $course->name }}</p>
+                    @foreach ($courses as $course)
+                        @if ($course->courseId == $courseId)
+                            <p class="text-uppercase fs-5 fw-semibold text-secondary">{{ $course->name }}</p>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -39,38 +43,42 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    @foreach ($marks as $mark)
-                                        @foreach ($users as $user)
-                                            @if ($mark->ADM == $user->ADM)
-                                                <td>{{ $user->name }}</td>
-                                            @endif
-                                        @endforeach
-                                        <td>{{ $mark->ADM }}</td>
-                                        <td>{{ $mark->code }}</td>
-                                        <td>{{ $mark->cat1 }}</td>
-                                        <td>{{ $mark->cat2 }}</td>
-                                        <td>{{ $mark->exam }}</td>
-                                        <td>{{ $mark->marks }}</td>
-                                        <td>{{ $mark->grade }}</td>
-                                        <td>
-                                            <div class="d-flex justify-content-end">
-                                                <!-- Edit button -->
-                                                <button type="button" class="btn" data-bs-toggle="modal"
-                                                    data-bs-target="#editModal{{ $mark->id }}">
-                                                    <i class="fa-solid fa-user-pen fa-sm" style="color: #0d6efd"></i>
-                                                </button>
+                                    @foreach ($course->units as $unit)
+                                        @foreach ($marks as $mark)
+                                            @if ($mark->code == $unit->code && $unit->courseId == $course->courseId)
+                                                @foreach ($users as $user)
+                                                    @if ($mark->ADM == $user->ADM)
+                                                        <td>{{ $user->name }}</td>
+                                                    @endif
+                                                @endforeach
+                                                <td>{{ $mark->ADM }}</td>
+                                                <td>{{ $mark->code }}</td>
+                                                <td>{{ $mark->cat1 }}</td>
+                                                <td>{{ $mark->cat2 }}</td>
+                                                <td>{{ $mark->exam }}</td>
+                                                <td>{{ $mark->marks }}</td>
+                                                <td>{{ $mark->grade }}</td>
+                                                <td>
+                                                    <div class="d-flex justify-content-end">
+                                                        <!-- Edit button -->
+                                                        <button type="button" class="btn" data-bs-toggle="modal"
+                                                            data-bs-target="#editModal{{ $mark->id }}">
+                                                            <i class="fa-solid fa-user-pen fa-sm"
+                                                                style="color: #0d6efd"></i>
+                                                        </button>
 
-                                                <!-- Delete button -->
-                                                <form class="m-0 p-0" method="POST"
-                                                    action="{{ route('grades.destroy', $mark->id) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn" type="submit">
-                                                        <i class="fa-solid fa-trash fa-sm" style="color: #dc3545;"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
+                                                        <!-- Delete button -->
+                                                        <form class="m-0 p-0" method="POST"
+                                                            action="{{ route('grades.destroy', $mark->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn" type="submit">
+                                                                <i class="fa-solid fa-trash fa-sm"
+                                                                    style="color: #dc3545;"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
                                 </tr>
                             </tbody>
                             <!-- Edit mark Modal -->
@@ -120,7 +128,10 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             @endforeach
+                            @endforeach
+
                             </tbody>
                         </table>
                     </div>

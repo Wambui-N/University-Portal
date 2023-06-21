@@ -7,7 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DisplayUnitController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\EnrollmentController;
-use App\Http\Controllers\FetchStudentsController;
+use App\Http\Controllers\StudentMarksController;
 use App\Http\Controllers\GradesController;
 use Illuminate\Support\Facades\Route;
 
@@ -99,4 +99,5 @@ Route::resource('/dashboard/teacher/grade_management', GradesController::class)-
 
 Route::get('/dashboard/teacher/grade_management/unit/{unitId}', [GradesController::class, 'fetch'])->name('grades.fetch');
 
-//Route::get('/unit-list/{unitId}', [GradesController::class, 'fetch'])->name('grades.fetch');
+//Student Marks
+Route::get('/dashboard/grade_book', [StudentMarksController::class, 'index'])->name('marks.index');
