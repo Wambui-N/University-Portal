@@ -139,8 +139,6 @@ class GradesController extends Controller
 
         // Validate the form input
         $validatedData = $request->validate([
-            'ADM' => 'required',
-            'code' => 'required',
             'cat1' => 'required',
             'cat2' => 'required',
             'exam' => 'required',
@@ -171,7 +169,7 @@ class GradesController extends Controller
         $mark->save();
 
         // Redirect to a relevant page or return a response as needed
-        return redirect()->route('grades.index');
+        return redirect()->back();
     }
 
     /**

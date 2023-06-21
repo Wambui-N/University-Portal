@@ -28,6 +28,7 @@
                                 <tr>
                                     <th scope="col">STUDENT</th>
                                     <th scope="col">ADM</th>
+                                    <th scope="col">UNIT</th>
                                     <th scope="col">CAT 1</th>
                                     <th scope="col">CAT 2</th>
                                     <th scope="col">EXAM</th>
@@ -45,11 +46,31 @@
                                             @endif
                                         @endforeach
                                         <td>{{ $mark->ADM }}</td>
+                                        <td>{{ $mark->code }}</td>
                                         <td>{{ $mark->cat1 }}</td>
                                         <td>{{ $mark->cat2 }}</td>
                                         <td>{{ $mark->exam }}</td>
-                                        <td>{{ $mark->total }}</td>
+                                        <td>{{ $mark->marks }}</td>
                                         <td>{{ $mark->grade }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-end">
+                                                <!-- Edit button -->
+                                                <button type="button" class="btn" data-bs-toggle="modal"
+                                                    data-bs-target="#editModal{{ $mark->id }}">
+                                                    <i class="fa-solid fa-user-pen fa-sm" style="color: #0d6efd"></i>
+                                                </button>
+
+                                                <!-- Delete button -->
+                                                <form class="m-0 p-0" method="POST"
+                                                    action="{{ route('grades.destroy', $mark->id) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn" type="submit">
+                                                        <i class="fa-solid fa-trash fa-sm" style="color: #dc3545;"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                 </tr>
                             </tbody>
                             <!-- Edit mark Modal -->
@@ -88,6 +109,11 @@
                                                     <input name="exam" type="text"
                                                         value="{{ old('name', $mark->exam ?? '') }}" class="form-control"
                                                         id="validationCustom01" required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
                                                 </div>
                                             </form>
                                         </div>
