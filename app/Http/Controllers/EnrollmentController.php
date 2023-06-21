@@ -8,6 +8,7 @@ use App\Models\student;
 use App\Models\unit;
 use App\Models\User;
 use App\Models\Teacher;
+use App\Models\students_units;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -65,11 +66,24 @@ class EnrollmentController extends Controller
             ->first();
 
         if (!$enrollment) {
-            //create a new enrollment
+            //create a new enrollment(course_student)
             $enrollment = new courses_students();
             $enrollment->ADM = $ADM;
             $enrollment->code = $code;
             $enrollment->save();
+
+            //create a new enrollment(student_unit)
+            $courses = Course::with('units')->get();
+            foreach ($courses as $course) {
+                if ($course->code == $code) {
+                    foreach ($course->units as $unit) {
+                        $student_unit = new students_units();
+                        $student_unit->ADM = $ADM;
+                        $student_unit->code = $unit->code;
+                        $student_unit->save();
+                    }
+                }
+            }
         }
 
         return redirect()->route('enrollments.index');

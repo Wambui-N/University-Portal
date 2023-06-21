@@ -12,4 +12,7 @@ class mark extends Model
     public function student(){
         return $this->belongsTo(Student::class);
     }
+    public function unit(){
+        return $this->belongsTo(Unit::class, 'code', 'code');
+    }
 }

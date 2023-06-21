@@ -7,6 +7,7 @@ use App\Models\course;
 use App\Models\user;
 use App\Models\student;
 use App\Models\courses_students;
+use App\Models\students_units;
 use App\Models\teacher;
 use App\Models\unit;
 use Illuminate\Http\Request;
@@ -48,11 +49,14 @@ class GradesController extends Controller
      */
 
 
-    public function fetch($courseId)
+    public function fetch($unitId)
     {
-        $matchingADM = DB::table('courses_students')
-        ->join('courses', 'courses_students.code', '=', 'courses.code')
-        ->where('courses.courseId','=', $courseId)
+        $students_units =students_units::all();
+        $units = Unit::all();
+        
+        $matchingADM = DB::table('units')
+        ->join('courses', '', '=', 'courses.id')
+        ->where('courses.courseId','=', $unitId)
         ->pluck('ADM')
         ->toArray();
 

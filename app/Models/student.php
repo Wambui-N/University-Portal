@@ -27,8 +27,18 @@ class student extends Model
     {
         return $this->belongsToMany(Course::class, 'courses_students', 'ADM', 'code');
     }
-
-
+    public function courses_students()
+    {
+        return $this->hasMany(Courses_Students::class, 'ADM', 'ADM');
+    }
+    public function units()
+    {
+        return $this->belongsToMany(Unit::class, 'students_units', 'ADM', 'code');
+    }
+    public function students_units()
+    {
+        return $this->hasMany(Students_Units::class, 'ADM', 'ADM');
+    }
     public function mark()
     {
         return $this->hasMany(Mark::class);

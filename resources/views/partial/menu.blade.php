@@ -265,8 +265,9 @@
             // Add a change event listener to the select-unit select element
             $('#select-unit').change(function() {
                 // Send an AJAX request
+                $selecteunit=$(this).val();
                 $.ajax({
-                    url: "{{ route('grades.fetch', ['courseId' => $courseId]) }}",
+                    url: "{{ route('grades.fetch'}}/"+$selectedunit,
                     type: 'GET',
                     success: function(data) {
                         console.log(data.length);
