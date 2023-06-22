@@ -16,11 +16,11 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:admin')->only('index');
-        $this->middleware('role:admin')->only('store');
-        $this->middleware('role:admin')->only('show');
-        $this->middleware('role:admin')->only('update');
-        $this->middleware('role:admin')->only('destroy');
+        $this->middleware('role:2')->only('index');
+        $this->middleware('role:2')->only('store');
+        $this->middleware('role:2')->only('show');
+        $this->middleware('role:2')->only('update');
+        $this->middleware('role:2')->only('destroy');
     }
     /**
      * Display a listing of the resource.

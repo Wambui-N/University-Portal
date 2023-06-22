@@ -25,6 +25,7 @@
                 <div class="card">
                     <!-- /.card-header -->
                     <div class="card-body">
+                        <div class="table-responsive">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -131,6 +132,7 @@
                                 </div>
                             </tbody>
                         </table>
+                    </div>
                         <form action="{{ route('grades.notify') }}" method="GET" class="my-3">
                             <div class="d-grid gap-2 d-md-block">
                                 <button class="btn btn-outline-secondary" type="submit">Notify Students</button>

@@ -15,12 +15,12 @@ class UnitController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:teacher')->only('index');
-        $this->middleware('role:teacher')->only('store');
-        $this->middleware('role:teacher')->only('edit');
-        $this->middleware('role:teacher')->only('update');
-        $this->middleware('role:teacher')->only('show');
-        $this->middleware('role:teacher')->only('destroy');
+        $this->middleware('role:1')->only('index');
+        $this->middleware('role:1')->only('store');
+        $this->middleware('role:1')->only('edit');
+        $this->middleware('role:1')->only('update');
+        $this->middleware('role:1')->only('show');
+        $this->middleware('role:1')->only('destroy');
     }
     /**
      * Display a listing of the resource.

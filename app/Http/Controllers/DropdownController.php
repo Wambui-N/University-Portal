@@ -10,7 +10,7 @@ class DropdownController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:teacher')->only('index');
+        $this->middleware('role:1')->only('index');
     }
     public function index()
     {

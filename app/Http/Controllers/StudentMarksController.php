@@ -13,7 +13,7 @@ class StudentMarksController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:student')->only('index');
+        $this->middleware('role:0')->only('index');
     }
     public function index()
     {
