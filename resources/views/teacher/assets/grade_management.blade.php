@@ -5,11 +5,9 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    @foreach ($courses as $course)
-                        @if ($course->courseId == $courseId)
-                            <p class="text-uppercase fs-5 fw-semibold text-secondary">{{ $course->name }}</p>
-                        @endif
-                    @endforeach
+                    @if ($course->courseId == $courseId)
+                        <p class="text-uppercase fs-5 fw-semibold text-secondary">{{ $course->name }}</p>
+                    @endif
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -42,10 +40,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    @foreach ($course->units as $unit)
-                                        @foreach ($marks as $mark)
-                                            @if ($mark->code == $unit->code && $unit->courseId == $course->courseId)
+                                @foreach ($course->units as $unit)
+                                    @foreach ($marks as $mark)
+                                        @if ($mark->code == $unit->code && $unit->courseId == $course->courseId)
+                                            <tr>
+
                                                 @foreach ($users as $user)
                                                     @if ($mark->ADM == $user->ADM)
                                                         <td>{{ $user->name }}</td>
@@ -79,61 +78,64 @@
                                                         </form>
                                                     </div>
                                                 </td>
-                                </tr>
-                            </tbody>
-                            <!-- Edit mark Modal -->
-                            <div class="modal fade" id="editModal{{ $mark->id }}" data-bs-backdrop="static"
-                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel{{ $mark->id }}"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="editModalLabel{{ $mark->id }}">Edit
-                                                mark</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{ route('grades.update', $mark->id) }}" method="POST"
-                                                class="row g-3 needs-validation" novalidate>
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="col-md-12">
-                                                    <label for="validationCustom01" class="form-label">CAT
-                                                        1</label>
-                                                    <input name="cat1" type="text"
-                                                        value="{{ old('name', $mark->cat1 ?? '') }}" class="form-control"
-                                                        id="validationCustom01" required>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label for="validationCustom01" class="form-label">CAT
-                                                        2</label>
-                                                    <input name="cat2" type="text"
-                                                        value="{{ old('name', $mark->cat2 ?? '') }}" class="form-control"
-                                                        id="validationCustom01" required>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label for="validationCustom01" class="form-label">EXAM</label>
-                                                    <input name="exam" type="text"
-                                                        value="{{ old('name', $mark->exam ?? '') }}" class="form-control"
-                                                        id="validationCustom01" required>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
-                                                </div>
-                                            </form>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                                <!-- Edit mark Modal -->
+                                <div class="modal fade" id="editModal{{ $mark->id }}" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1"
+                                    aria-labelledby="editModalLabel{{ $mark->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="editModalLabel{{ $mark->id }}">Edit
+                                                    mark</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ route('grades.update', $mark->id) }}" method="POST"
+                                                    class="row g-3 needs-validation" novalidate>
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="col-md-12">
+                                                        <label for="validationCustom01" class="form-label">CAT
+                                                            1</label>
+                                                        <input name="cat1" type="text"
+                                                            value="{{ old('name', $mark->cat1 ?? '') }}"
+                                                            class="form-control" id="validationCustom01" required>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="validationCustom01" class="form-label">CAT
+                                                            2</label>
+                                                        <input name="cat2" type="text"
+                                                            value="{{ old('name', $mark->cat2 ?? '') }}"
+                                                            class="form-control" id="validationCustom01" required>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="validationCustom01" class="form-label">EXAM</label>
+                                                        <input name="exam" type="text"
+                                                            value="{{ old('name', $mark->exam ?? '') }}"
+                                                            class="form-control" id="validationCustom01" required>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            @endif
-                            @endforeach
-                            @endforeach
-
                             </tbody>
                         </table>
+                        <form action="{{ route('grades.notify') }}" method="GET" class="my-3">
+                            <div class="d-grid gap-2 d-md-block">
+                                <button class="btn btn-outline-secondary" type="submit">Notify Students</button>
+                            </div>
+                        </form>
                     </div>
                     <!-- /.card-body -->
                 </div>

@@ -11,6 +11,7 @@ use App\Models\students_units;
 use App\Models\teacher;
 use App\Models\unit;
 use Illuminate\Http\Request;
+use App\Notifications\MarksLoadedNotification;
 use Illuminate\Support\Facades\DB;
 
 
@@ -60,6 +61,21 @@ class GradesController extends Controller
 
         return response()->json($students);
     }
+    public function notify(Request $request)
+    {
+        // $studentsWithMarks = mark::all();
+        // foreach ($studentsWithMarks as $mark) {
+        //     $student = User::where('ADM', $mark->ADM)->first();
+        //     $student->notify(new MarksLoadedNotification());
+        // }
+
+        // return redirect()->back();
+        $student = User::where('ADM', 'KU-000007')->first();
+        $student->notify(new MarksLoadedNotification());
+
+        return redirect()->back();
+    }
+
 
     public function create()
     {
