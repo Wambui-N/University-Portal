@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class StudentMarksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:student')->only('index');
+    }
     public function index()
     {
         $marks = Mark::all();

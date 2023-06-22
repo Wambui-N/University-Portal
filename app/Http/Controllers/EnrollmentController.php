@@ -15,6 +15,15 @@ use Illuminate\Support\Facades\DB;
 
 class EnrollmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:student')->only('index');
+        $this->middleware('role:student')->only('store');
+        $this->middleware('role:student')->only('show');
+        $this->middleware('role:student')->only('update');
+        $this->middleware('role:student')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

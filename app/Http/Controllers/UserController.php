@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin')->only('index');
+        $this->middleware('role:admin')->only('store');
+        $this->middleware('role:admin')->only('show');
+        $this->middleware('role:admin')->only('update');
+        $this->middleware('role:admin')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

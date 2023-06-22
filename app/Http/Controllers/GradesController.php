@@ -12,11 +12,23 @@ use App\Models\teacher;
 use App\Models\unit;
 use Illuminate\Http\Request;
 use App\Notifications\MarksLoadedNotification;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 
 class GradesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:teacher')->only('index');
+        $this->middleware('role:teacher')->only('fetch');
+        $this->middleware('role:teacher')->only('notify');
+        $this->middleware('role:teacher')->only('store');
+        $this->middleware('role:teacher')->only('show');
+        $this->middleware('role:teacher')->only('update');
+        $this->middleware('role:teacher')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -63,18 +75,18 @@ class GradesController extends Controller
     }
     public function notify(Request $request)
     {
-        // $studentsWithMarks = mark::all();
-        // foreach ($studentsWithMarks as $mark) {
-        //     $student = User::where('ADM', $mark->ADM)->first();
-        //     $student->notify(new MarksLoadedNotification());
-        // }
+        $studentsWithMarks = Mark::distinct('ADM')->pluck('ADM');
 
-        // return redirect()->back();
-        $student = User::where('ADM', 'KU-000007')->first();
-        $student->notify(new MarksLoadedNotification());
+        foreach ($studentsWithMarks as $adm) {
+            $student = User::where('ADM', $adm)->first();
+            if ($student) {
+                Notification::send($student, new MarksLoadedNotification());
+            }
+        }
 
         return redirect()->back();
     }
+
 
 
     public function create()

@@ -98,7 +98,7 @@ Route::resource('/dashboard/teacher/grade_management', GradesController::class)-
 ]);
 
 Route::get('/dashboard/teacher/grade_management/unit/{unitId}', [GradesController::class, 'fetch'])->name('grades.fetch');
-Route::get('/dashboard/teacher/grade_management/notify', [GradesController::class, 'notify'])->name('grades.notify');
+Route::get('/notify', [GradesController::class, 'notify'])->name('grades.notify');
 
 //Student Marks
 Route::get('/dashboard/grade_book', [StudentMarksController::class, 'index'])->name('marks.index');
