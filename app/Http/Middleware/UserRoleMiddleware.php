@@ -20,6 +20,6 @@ class UserRoleMiddleware
         }
 
         //abort(403, 'Unauthorized');
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('error', 'You are not authorized to access this page');
     }
 }

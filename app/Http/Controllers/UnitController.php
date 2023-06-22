@@ -86,7 +86,7 @@ class UnitController extends Controller
         $unit->save();
 
         // Redirect to a relevant page or return a response as needed
-        return redirect()->route('units.index', ['courseId' => $course->id]);
+        return redirect()->route('units.index', ['courseId' => $course->id]); 
     }
 
 

@@ -45,7 +45,10 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
+        {{-- @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            </div>
+        @endif --}}
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand bg-light border-bottom">
             <!-- Left navbar links -->
@@ -279,7 +282,8 @@
 
                         // Create new options based on the data and append them to the select-student select element
                         $.each(data, function(index, value) {
-                            $('#select-student').append('<option name="ADM" value="' + value.ADM +
+                            $('#select-student').append('<option name="ADM" value="' +
+                                value.ADM +
                                 '">' + value.name + '</option>');
                         });
                     },
