@@ -1,38 +1,10 @@
 @extends('partial.menu')
 
 @section('sidebar_menu')
-    <li class="nav-item menu-open">
-        <a href="{{ url('/dashboard') }}" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p class="fs-5">
-                Dashboard
-            </p>
-        </a>
-    </li>
-    <li class="nav-item rounded my-2  bg-primary">
-        <a href="{{ url('/dashboard/user_management') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
-            <p>
-                User Management
-            </p>
-        </a>
-    </li>
-    <li class="nav-item rounded my-2 bg-primary">
-        <a href="{{ url('/dashboard/course_management') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-book" style="color: #fff;"></i>
-            <p>
-                Course Management
-            </p>
-        </a>
-    </li>
-    <li class="nav-item rounded my-2  bg-primary">
-        <a href="{{ url('/dashboard/communication') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-envelope" style="color: #ffffff;"></i>
-            <p>
-                Communication
-            </p>
-        </a>
-    </li>
+@include('partial.custom.nav-item', ['href' => url('/dashboard'), 'activeUrl' => '/dashboard', 'icon' => 'fa-tachometer-alt', 'label' => 'Dashboard'])
+@include('partial.custom.nav-item', ['href' => url('/dashboard/user_management'), 'activeUrl' => 'user_management', 'icon' => 'fa-users', 'label' => 'User Management'])
+@include('partial.custom.nav-item', ['href' => url('/dashboard/course_management'), 'activeUrl' => 'course_management', 'icon' => 'fa-book', 'label' => 'Course Management'])
+{{-- @include('partial.custom.nav-item', ['href' => url('/dashboard/communication'), 'activeUrl' => '/dashboard/communication' , 'icon' => 'fa-envelope', 'label' => 'Communication']) --}}
 @endsection
 
 @section('dashboard_stuff')

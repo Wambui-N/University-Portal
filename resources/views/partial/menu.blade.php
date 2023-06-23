@@ -16,8 +16,11 @@
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
@@ -37,20 +40,58 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #14181f
+        }
+
+        .bg-light-blue {
+            background-color: #eceff3 !important;
+        }
+
+        .nav-bar-blue {
+            background-color: #e3e6ed !important;
+        }
+
+        .sidebar-blue {
+            background-color: #f0f2f6 !important;
+        }
+
+        .nav-link-color {
+            color: #46546e !important;
+        }
+
+        .accent-color {
+            color: #8897b4 !important;
+        }
+
+        .nav-pills .nav-link.active,
+        .nav-pills .show>.nav-link {
+            color: #fff;
+            background-color: #bcc5d5;
+        }
+        .table-bg{
+            background-color: #eceff3 !important;
+        }
+
+        /* .nav-bar-blue .nav-item .nav-link{
+            color: #6c757d !important;
+        } */
+    </style>
 </head>
 
 <!--Dashboard-->
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class=" hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         {{-- @if (session('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
             </div>
         @endif --}}
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand bg-light border-bottom">
+        <nav class="main-header navbar navbar-expand nav-bar-blue border-bottom">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -66,28 +107,26 @@
                 <div class="user-panel pb-1 d-flex">
                     <div class="info position-relative">
                         <div>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="d-flex align-items-center btn btn-outline-light border-0"
-                                data-bs-toggle="modal" data-bs-target="#Profile">
-                                <img src={{ asset('dist/img/user.png') }}
-                                    class="my-3 mr-3 img-fluid border-0 shadow-none bg-transparent" alt="user-image">
-                                <div>
-                                    <p class="d-block p-0 m-0 fw-normal text-uppercase text-primary">
-                                        {{ Auth::User()->name }}</p>
-                                    <p class="d-block p-0 m-0 text-start fw-light text-primary">
-                                        @if (Auth::check())
-                                            @if (Auth::user()->usertype == '0')
-                                                Student
-                                            @elseif (Auth::user()->usertype == '1')
-                                                Teacher
-                                            @elseif (Auth::user()->usertype == '2')
-                                                Admin
+                            <div class="card bg-transparent shadow-none border-0">
+                                <div class="card-body py-0 d-flex align-items-center">
+                                    {{-- <img src="{{ asset('dist/img/user.png') }}" class="my-3 mr-3 img-fluid border-0 shadow-none bg-transparent" alt="user-image"> --}}
+                                    <div>
+                                        <p class="nav-link-blue d-block p-0 m-0 fw-normal text-uppercase">{{ Auth::user()->name }}</p>
+                                        <p class="nav-link-blue d-block p-0 m-0 text-start fw-light">
+                                            @if (Auth::check())
+                                                @if (Auth::user()->usertype == '0')
+                                                    Student
+                                                @elseif (Auth::user()->usertype == '1')
+                                                    Teacher
+                                                @elseif (Auth::user()->usertype == '2')
+                                                    Admin
+                                                @endif
                                             @endif
-                                        @endif
-                                    </p>
-
+                                        </p>
+                                    </div>
                                 </div>
-                            </button>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -96,17 +135,17 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar bg-light border-end">
+        <aside class="main-sidebar sidebar-blue border-end">
             <!-- Brand Logo -->
-            <a href="#" class="brand-link">
-                <span class="brand-text font-weight-light">University</span>
-            </a>
+            <div class="text-center px-3 pt-5 m-0">
+                <a href="{{ route('dashboard') }}" class="text-decoration-none">
+                    <p class="text-uppercase accent-color fw-semibold">Lorem University Portal</p>
+                </a>
+            </div>
+
 
             <!-- Sidebar -->
             <div class="sidebar">
-
-
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -117,13 +156,13 @@
 
                         @yield('sidebar_menu')
 
-                        <li class="nav-item rounded my-2 bg-danger">
+                        <li class="nav-item  ">
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); logout();"
                                 class="nav-link">
-                                <i class="nav-icon fas fa-solid fa-user" style="color: #fff;"></i>
+                                <i class="nav-icon fas fa-solid fa-user" style="color: #8897b4;"></i>
 
-                                <p>
-                                    Log Out
+                                <p class="accent-color fw-semibold">
+                                    LOG OUT
                                 </p>
                             </a>
                         </li>
@@ -136,7 +175,7 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper bg-light-blue" style="background-color: #eceff3;">
             <!-- /.content-header -->
 
             <!-- Main content -->
@@ -191,6 +230,23 @@
                 });
         }
     </script>
+
+    {{-- Active Nav Link --}}
+    <script>
+        var currentUrl = window.location.href;
+        var links = document.querySelectorAll('.nav-link');
+
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+            var href = link.getAttribute('href');
+
+            // Use a more specific condition to check if the current URL matches the link's href
+            if (currentUrl.endsWith(href) || currentUrl === href) {
+                link.classList.add('active');
+            }
+        }
+    </script>
+
 
 
     <!-- jQuery -->

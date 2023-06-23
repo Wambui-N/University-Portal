@@ -1,31 +1,12 @@
 @extends('partial.menu')
 @section('sidebar_menu')
-<li class="nav-item menu-open">
-    <a href="{{ url('/dashboard') }}" class="nav-link">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
-        <p class="fs-5">
-            Dashboard
-        </p>
-    </a>
-</li>
-    <li class="nav-item rounded my-2  bg-primary">
-        <a href="{{ url('/dashboard/student/enrollment') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-users" style="color: #fff;"></i>
-            <p>
-                Course Enrollment
-            </p>
-        </a>
-    </li>
-    <li class="nav-item rounded my-2 bg-primary">
-        <a href="{{ url('/dashboard/grade_book') }}" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-book" style="color: #fff;"></i>
-            <p>
-                Grade Book
-            </p>
-        </a>
-    </li>
 
-    
+
+@include('partial.custom.nav-item', ['href' => url('/dashboard'), 'activeUrl' => '/dashboard', 'icon' => 'fa-tachometer-alt', 'label' => 'Dashboard'])
+@include('partial.custom.nav-item', ['href' => url('/dashboard/student/enrollment'), 'activeUrl' => '/dashboard/student/enrollment' , 'icon' => 'fa-solid fa-users', 'label' => 'Course Enrollment'])
+@include('partial.custom.nav-item', ['href' => url('/dashboard/grade_book'), 'activeUrl' => '/dashboard/gradebook', 'icon' => 'fa-solid fa-book', 'label' => 'Grade Book'])
+
+
 @endsection
 
 @section('dashboard_stuff')

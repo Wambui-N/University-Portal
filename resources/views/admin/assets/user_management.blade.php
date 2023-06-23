@@ -43,119 +43,126 @@
 
 
 
-    <table class="table table-borderless bg-light">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">ADM</th>
-                <th scope="col"> </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($users as $user)
-                <tr>
-                    <!-- Display user details -->
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->ADM }}</td>
+    <div class="card">
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table class="table table-striped table-hover table-bg">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">ADM</th>
+                        <th scope="col"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <!-- Display user details -->
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->ADM }}</td>
 
-                    <td>
-                        <div class="d-flex justify-content-end">
-                            <!-- Edit button -->
-                            <button type="button" class="btn" data-bs-toggle="modal"
-                                data-bs-target="#editModal{{ $user->id }}">
-                                <i class="fa-solid fa-user-pen fa-sm" style="color: #0d6efd"></i>
-                            </button>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <!-- Edit button -->
+                                    <button type="button" class="btn" data-bs-toggle="modal"
+                                        data-bs-target="#editModal{{ $user->id }}">
+                                        <i class="fa-solid fa-user-pen fa-sm" style="color: #0d6efd"></i>
+                                    </button>
 
-                            <!-- Delete button -->
-                            <form class="m-0 p-0" method="POST" action="{{ route('users.destroy', $user->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn" type="submit">
-                                    <i class="fa-solid fa-trash fa-sm" style="color: #dc3545;"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
+                                    <!-- Delete button -->
+                                    <form class="m-0 p-0" method="POST" action="{{ route('users.destroy', $user->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn" type="submit">
+                                            <i class="fa-solid fa-trash fa-sm" style="color: #dc3545;"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
 
-                </tr>
+                        </tr>
 
-                <!-- Edit User Modal -->
-                <div class="modal fade" id="editModal{{ $user->id }}" data-bs-backdrop="static"
-                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel{{ $user->id }}"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="editModalLabel{{ $user->id }}">Edit User</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                        <!-- Edit User Modal -->
+                        <div class="modal fade" id="editModal{{ $user->id }}" data-bs-backdrop="static"
+                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel{{ $user->id }}"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="editModalLabel{{ $user->id }}">Edit User</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('users.update', $user->id) }}" method="POST"
+                                            class="row g-3 needs-validation" novalidate>
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="col-md-7">
+                                                <label for="validationCustom01" class="form-label">Name</label>
+                                                <input name="name" type="text"
+                                                    value="{{ old('name', $user->name ?? '') }}" class="form-control"
+                                                    id="validationCustom01" required>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label class="form-label"></label>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="role"
+                                                        id="studentRole{{ $user->id }}" value="student"
+                                                        {{ old('role', $user->usertype === 0 ? 'checked' : '') }} required>
+                                                    <label class="form-check-label" for="studentRole{{ $user->id }}">
+                                                        Student
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="role"
+                                                        id="teacherRole{{ $user->id }}" value="teacher"
+                                                        {{ old('role', $user->usertype === 1 ? 'checked' : '') }} required>
+                                                    <label class="form-check-label" for="teacherRole{{ $user->id }}">
+                                                        Teacher
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="role"
+                                                        id="adminRole{{ $user->id }}" value="admin"
+                                                        {{ old('role', $user->usertype === 2 ? 'checked' : '') }} required>
+                                                    <label class="form-check-label" for="adminRole{{ $user->id }}">
+                                                        Admin
+                                                    </label>
+                                                </div>
+                                                <!-- Rest of the role radio buttons -->
+                                            </div>
+                                            <div class="col-md-7">
+                                                <label for="validationCustom02" class="form-label">Email</label>
+                                                <input name="email" type="email"
+                                                    value="{{ old('email', $user->email ?? '') }}" class="form-control"
+                                                    id="validationCustom02" required>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <label for="validationCustomUsername" class="form-label">Password</label>
+                                                <input name="password" type="text" value=""
+                                                    class="form-control" id="validationCustomUsername"
+                                                    aria-describedby="inputGroupPrepend" required>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <form action="{{ route('users.update', $user->id) }}" method="POST"
-                                    class="row g-3 needs-validation" novalidate>
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="col-md-7">
-                                        <label for="validationCustom01" class="form-label">Name</label>
-                                        <input name="name" type="text" value="{{ old('name', $user->name ?? '') }}"
-                                            class="form-control" id="validationCustom01" required>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <label class="form-label"></label>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="role"
-                                                id="studentRole{{ $user->id }}" value="student"
-                                                {{ old('role', $user->usertype === 0 ? 'checked' : '') }} required>
-                                            <label class="form-check-label" for="studentRole{{ $user->id }}">
-                                                Student
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="role"
-                                                id="teacherRole{{ $user->id }}" value="teacher"
-                                                {{ old('role', $user->usertype === 1 ? 'checked' : '') }} required>
-                                            <label class="form-check-label" for="teacherRole{{ $user->id }}">
-                                                Teacher
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="role"
-                                                id="adminRole{{ $user->id }}" value="admin"
-                                                {{ old('role', $user->usertype === 2 ? 'checked' : '') }} required>
-                                            <label class="form-check-label" for="adminRole{{ $user->id }}">
-                                                Admin
-                                            </label>
-                                        </div>
-                                        <!-- Rest of the role radio buttons -->
-                                    </div>
-                                    <div class="col-md-7">
-                                        <label for="validationCustom02" class="form-label">Email</label>
-                                        <input name="email" type="email" value="{{ old('email', $user->email ?? '') }}"
-                                            class="form-control" id="validationCustom02" required>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <label for="validationCustomUsername" class="form-label">Password</label>
-                                        <input name="password" type="text" value="" class="form-control"
-                                            id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </form>
-                            </div>
                         </div>
-                    </div>
-                </div>
-            @endforeach
+                    @endforeach
 
-        </tbody>
+                </tbody>
 
-    </table>
-
+            </table>
+        </div>
+    </div>
 
 
     <!--New User Modal -->
@@ -218,5 +225,4 @@
             </div>
         </div>
     </div>
-
 @endsection
