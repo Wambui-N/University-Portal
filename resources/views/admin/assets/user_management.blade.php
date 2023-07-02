@@ -2,25 +2,16 @@
 
 @section('func')
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h4 class="m-0 fs-4 text-secondary">User Management</h4>
-                </div><!-- /.col -->
-
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+    <div>
+        <h4 class="m-0 pt-1 pb-3 fs-4 accent-color">User Management</h4>
     </div>
 
-
     <p class="fs-5 fw-bold">users</p>
-
 
     <div class="d-flex justify-content-between mb-1">
         <form action="{{ route('users.index') }}" method="GET">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="userTypeDropdown"
+                <button class="btn primary-button dropdown-toggle" type="button" id="userTypeDropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Filter by Roles
                 </button>
@@ -35,18 +26,18 @@
                 </ul>
             </div>
         </form>
-        <button type="button" class="btn btn-primary btn-sm border-0 my-0" data-bs-toggle="modal"
+        <button type="button" class="btn primary-button btn-sm border-0 my-0" data-bs-toggle="modal"
             data-bs-target="#staticBackdrop">
-            <i class="fa-solid fa-plus" style="color: #ffffff"></i>
+            <i class="fa-solid fa-plus" style="color: #14181f"></i>
         </button>
     </div>
 
 
 
-    <div class="card">
+    <div class="py-2 card">
         <!-- /.card-header -->
         <div class="card-body">
-            <table class="table table-striped table-hover table-bg">
+            <table class="table table-color table-hover table-bg">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -68,7 +59,7 @@
                                     <!-- Edit button -->
                                     <button type="button" class="btn" data-bs-toggle="modal"
                                         data-bs-target="#editModal{{ $user->id }}">
-                                        <i class="fa-solid fa-user-pen fa-sm" style="color: #0d6efd"></i>
+                                        <i class="fa-solid fa-user-pen fa-sm" style="color: #8897b4"></i>
                                     </button>
 
                                     <!-- Delete button -->

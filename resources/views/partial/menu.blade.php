@@ -44,6 +44,7 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
+            text-align: justify;
             color: #14181f
         }
 
@@ -74,6 +75,23 @@
         }
         .table-bg{
             background-color: #eceff3 !important;
+        }
+        .text-color {
+            color: #14181f !important;
+        }
+        .primary-button {
+            background-color: #bcc5d5;
+            color: #14181f;
+        }
+
+        .secondary-button {
+            background-color: #f6f8fa;
+            color: #14181f;
+            border style: solid;
+            border-color: #14181f;
+        }
+        .table-color{
+            background-color: #eceff3
         }
 
         /* .nav-bar-blue .nav-item .nav-link{
@@ -111,8 +129,8 @@
                                 <div class="card-body py-0 d-flex align-items-center">
                                     {{-- <img src="{{ asset('dist/img/user.png') }}" class="my-3 mr-3 img-fluid border-0 shadow-none bg-transparent" alt="user-image"> --}}
                                     <div>
-                                        <p class="nav-link-blue d-block p-0 m-0 fw-normal text-uppercase">{{ Auth::user()->name }}</p>
-                                        <p class="nav-link-blue d-block p-0 m-0 text-start fw-light">
+                                        <p class="accent-color d-block p-0 m-0 fw-normal text-uppercase text-center">{{ Auth::user()->name }}</p>
+                                        <p class="accent-color d-block p-0 m-0 text-start fw-light text-center">
                                             @if (Auth::check())
                                                 @if (Auth::user()->usertype == '0')
                                                     Student
