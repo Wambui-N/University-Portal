@@ -10,7 +10,7 @@
         <p class="fs-5 fw-bold mb-0">courses</p>
         <button type="button" class="btn primary-button btn-sm border-0 my-0" data-bs-toggle="modal"
             data-bs-target="#staticBackdrop">
-            <i class="fa-solid fa-plus" style="color: #ffffff"></i>
+            <i class="fa-solid fa-plus" style="color: #14181f"></i>
         </button>
     </div>
 

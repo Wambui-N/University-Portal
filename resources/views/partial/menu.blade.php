@@ -44,7 +44,6 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            text-align: justify;
             color: #14181f
         }
 
